@@ -50,6 +50,21 @@ export const ChatCommandMetadata: {
         dm_permission: true,
         default_member_permissions: undefined,
     },
+    BET: {
+        type: ApplicationCommandType.ChatInput,
+        name: Lang.getRef('chatCommands.bet', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('chatCommands.bet'),
+        description: Lang.getRef('commandDescs.bet', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('commandDescs.bet'),
+        dm_permission: true,
+        default_member_permissions: undefined,
+        options: [
+            {
+                ...Args.BET_OPTION,
+                required: true,
+            },
+        ],
+    },
 };
 
 export const MessageCommandMetadata: {

@@ -124,6 +124,33 @@
                         ]
                     }
                 ]
+            },
+            "betCommands": {
+                "title": "Bet Embed title TBD",
+                "color": "color is a thing we can do",
+                "description": "description is something we can do",
+                "url": "really not sure why we'd need this, guess it makes the title link somewhere?",
+                "footer": {
+                    "icon_url": "ok really now",
+                    "text": "do we really need this part"
+                },
+                "thumbnail": {
+                    "url": "image of mookie casino here?"
+                },
+                "image": {
+                    "url": "image of mookie casino here?"
+                },
+                "author": {
+                    "name": "Do we even care to add this? I guess we could make it mookie's face and icon",
+                    "url": "asdkljk",
+                    "icon_url": "again, do we really care"
+                },
+                "fields": [
+                    {
+                        "name": "Test field name, Bet info goes here in diff fields assume",
+                        "value": "Test"
+                    }
+                ]
             }
         },
         "validationEmbeds": {
@@ -190,7 +217,8 @@
         "chatCommands": {
             "help": "help",
             "info": "info",
-            "test": "test"
+            "test": "test",
+            "bet": "bet"
         },
         "userCommands": {
             "viewDateJoined": "View Date Joined"
@@ -204,11 +232,13 @@
         "commandDescs": {
             "help": "Find help or contact support.",
             "info": "View bot info.",
-            "test": "Run the test command."
+            "test": "Run the test command.",
+            "bet": "Create a bet under the watchful eyes of the great arbiter Mookie"
         },
         "argDescs": {
             "helpOption": "Option.",
-            "infoOption": "Option."
+            "infoOption": "Option.",
+            "betOption": "Option."
         },
         "fields": {
             "commands": "Commands",
@@ -295,6 +325,11 @@
             "supportEmbed": "[Join Support Server]({{COM:links.support}})",
             "templateEmbed": "[Discord Bot TypeScript Template]({{COM:links.template}})",
             "voteEmbed": "[Vote for {{COM:bot.name}}!]({{COM:links.vote}})"
+        },
+        "betOptions": {
+            "bet": "Bet",
+            "betYes": "Bet Yes",
+            "betNo": "Bet No"
         }
     }
 }

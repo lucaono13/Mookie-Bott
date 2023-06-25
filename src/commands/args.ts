@@ -3,6 +3,7 @@ import { APIApplicationCommandBasicOption, ApplicationCommandOptionType } from '
 import { HelpOption, InfoOption } from '../enums/index.js';
 import { Language } from '../models/enum-helpers/index.js';
 import { Lang } from '../services/index.js';
+import { BetOption } from '../enums/bet-option.js';
 
 export class Args {
     public static readonly HELP_OPTION: APIApplicationCommandBasicOption = {
@@ -45,6 +46,20 @@ export class Args {
                 name: Lang.getRef('infoOptions.dev', Language.Default),
                 name_localizations: Lang.getRefLocalizationMap('infoOptions.dev'),
                 value: InfoOption.DEV,
+            },
+        ],
+    };
+    public static readonly BET_OPTION: APIApplicationCommandBasicOption = {
+        name: Lang.getRef('arguments.option', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('arguements.option'),
+        description: Lang.getRef('argsDescs.betOption', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('argDescs.betOption'),
+        type: ApplicationCommandOptionType.String,
+        choices: [
+            {
+                name: Lang.getRef('betOptions.bet', Language.Default),
+                name_localizations: Lang.getRefLocalizationMap('betOptions.bet'),
+                value: BetOption.BET,
             },
         ],
     };
