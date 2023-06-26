@@ -126,31 +126,26 @@
                 ]
             },
             "betCommands": {
-                "title": "Bet Embed title TBD",
-                "color": "color is a thing we can do",
-                "description": "description is something we can do",
-                "url": "really not sure why we'd need this, guess it makes the title link somewhere?",
-                "footer": {
-                    "icon_url": "ok really now",
-                    "text": "do we really need this part"
-                },
-                "thumbnail": {
-                    "url": "image of mookie casino here?"
-                },
-                "image": {
-                    "url": "image of mookie casino here?"
-                },
-                "author": {
-                    "name": "Do we even care to add this? I guess we could make it mookie's face and icon",
-                    "url": "asdkljk",
-                    "icon_url": "again, do we really care"
-                },
+                "title": "{{BET_NAME}}",
+                "color": 12267905,
                 "fields": [
                     {
-                        "name": "Test field name, Bet info goes here in diff fields assume",
-                        "value": "Test"
+                        "name": "Stakes",
+                        "value": "{{BET_STAKES}}"
+                    },
+                    {
+                        "name": "Yes",
+                        "value": "{{YES_BETS}}"
+                    },
+                    {
+                        "name": "No",
+                        "value": "{{NO_BETS}}"
                     }
-                ]
+                ],
+                "timestamp": "2023-06-26T01:19:00.031Z",
+                "footer": {
+                    "text": "Mookie Bot's Bets!"
+                }
             }
         },
         "validationEmbeds": {
@@ -238,7 +233,7 @@
         "argDescs": {
             "helpOption": "Option.",
             "infoOption": "Option.",
-            "betOption": "Option."
+            "betName": "name"
         },
         "fields": {
             "commands": "Commands",
@@ -326,10 +321,17 @@
             "templateEmbed": "[Discord Bot TypeScript Template]({{COM:links.template}})",
             "voteEmbed": "[Vote for {{COM:bot.name}}!]({{COM:links.vote}})"
         },
-        "betOptions": {
-            "bet": "Bet",
+        "betArgs": {
+            "betName": "Bet",
+            "betStakes": "Stakes",
             "betYes": "Bet Yes",
             "betNo": "Bet No"
+        },
+        "betArgsDescs": {
+            "betName": "What is the bet?",
+            "betStakes": "What does the winner get?",
+            "betYes": "People who voted yes on the bet.",
+            "betNo": "People who voted no on the bet."
         }
     }
 }

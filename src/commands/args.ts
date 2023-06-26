@@ -3,7 +3,6 @@ import { APIApplicationCommandBasicOption, ApplicationCommandOptionType } from '
 import { HelpOption, InfoOption } from '../enums/index.js';
 import { Language } from '../models/enum-helpers/index.js';
 import { Lang } from '../services/index.js';
-import { BetOption } from '../enums/bet-option.js';
 
 export class Args {
     public static readonly HELP_OPTION: APIApplicationCommandBasicOption = {
@@ -49,18 +48,25 @@ export class Args {
             },
         ],
     };
-    public static readonly BET_OPTION: APIApplicationCommandBasicOption = {
-        name: Lang.getRef('arguments.option', Language.Default),
-        name_localizations: Lang.getRefLocalizationMap('arguements.option'),
-        description: Lang.getRef('argsDescs.betOption', Language.Default),
-        description_localizations: Lang.getRefLocalizationMap('argDescs.betOption'),
+    public static readonly BET_NAME: APIApplicationCommandBasicOption = {
+        name: 'bet',
+        description: Lang.getRef('betArgsDescs.betName', Language.Default),
         type: ApplicationCommandOptionType.String,
-        choices: [
-            {
-                name: Lang.getRef('betOptions.bet', Language.Default),
-                name_localizations: Lang.getRefLocalizationMap('betOptions.bet'),
-                value: BetOption.BET,
-            },
-        ],
     };
+    public static readonly BET_YES: APIApplicationCommandBasicOption = {
+        name: 'yes',
+        description: Lang.getRef('betArgsDescs.betYes', Language.Default),
+        type: ApplicationCommandOptionType.String,
+    };
+    public static readonly BET_NO: APIApplicationCommandBasicOption = {
+        name: 'no',
+        description: Lang.getRef('betArgsDescs.betNo', Language.Default),
+        type: ApplicationCommandOptionType.String,
+    };
+    public static readonly BET_STAKES: APIApplicationCommandBasicOption = {
+        name: 'stakes',
+        description: Lang.getRef('betArgsDescs.betStakes', Language.Default),
+        type: ApplicationCommandOptionType.String,
+    };
+    // public static readonly BET_OPTION: APIapplication
 }

@@ -1,10 +1,10 @@
 import { ChatInputCommandInteraction, EmbedBuilder, PermissionsString } from 'discord.js';
 
-import { BetOption } from '../../enums/index.js';
+// import { BetOption } from '../../enums/index.js';
 import { Language } from '../../models/enum-helpers/index.js';
 import { EventData } from '../../models/internal-models.js';
 import { Lang } from '../../services/index.js';
-import { ClientUtils, FormatUtils, InteractionUtils } from '../../utils/index.js';
+import { InteractionUtils } from '../../utils/index.js';
 import { Command, CommandDeferType } from '../index.js';
 
 export class BetCommand implements Command {
@@ -16,15 +16,20 @@ export class BetCommand implements Command {
 
     public async execute(intr: ChatInputCommandInteraction, data: EventData): Promise<void> {
         let args = {
-            option: intr.options.getString(
-                Lang.getRef('arguments.option', Language.Default)
-            ) as BetOption,
+            bet: intr.options.getString('bet', true),
+            stakes: intr.options.getString('stakes', true),
+            yes: intr.options.getString('yes', true),
+            no: intr.options.getString('no', true),
         };
 
         let embed: EmbedBuilder;
-        //Set embed in here using args?
-        switch (args.option) {
-        }
+        // Adds arguments to embed
+        embed = Lang.getEmbed('displayEmbeds.betCommands', data.lang, {
+            BET_NAME: args.bet,
+            BET_STAKES: args.stakes,
+            YES_BETS: args.yes,
+            NO_BETS: args.no,
+        });
 
         await InteractionUtils.send(intr, embed);
     }

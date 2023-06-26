@@ -60,7 +60,19 @@ export const ChatCommandMetadata: {
         default_member_permissions: undefined,
         options: [
             {
-                ...Args.BET_OPTION,
+                ...Args.BET_NAME,
+                required: true,
+            },
+            {
+                ...Args.BET_STAKES,
+                required: true,
+            },
+            {
+                ...Args.BET_YES,
+                required: true,
+            },
+            {
+                ...Args.BET_NO,
                 required: true,
             },
         ],
