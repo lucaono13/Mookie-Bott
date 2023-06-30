@@ -1,10 +1,16 @@
-import { ChatInputCommandInteraction, EmbedBuilder, PermissionsString } from 'discord.js';
+import {
+    ChatInputCommandInteraction,
+    EmbedBuilder,
+    NewsChannel,
+    PermissionsString,
+    TextChannel,
+} from 'discord.js';
 
 // import { BetOption } from '../../enums/index.js';
 import { Language } from '../../models/enum-helpers/index.js';
 import { EventData } from '../../models/internal-models.js';
 import { Lang } from '../../services/index.js';
-import { InteractionUtils } from '../../utils/index.js';
+import { ClientUtils, MessageUtils } from '../../utils/index.js';
 import { Command, CommandDeferType } from '../index.js';
 
 export class BetCommand implements Command {
@@ -31,6 +37,12 @@ export class BetCommand implements Command {
             NO_BETS: args.no,
         });
 
-        await InteractionUtils.send(intr, embed);
+        // Finds the mookie-bets channel
+        let betsChannel: NewsChannel | TextChannel = await ClientUtils.findTextChannel(
+            intr.guild,
+            'mookie-bets'
+        );
+        // Sends the bet to the bets channel only
+        await MessageUtils.send(betsChannel, embed);
     }
 }

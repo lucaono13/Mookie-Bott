@@ -2,18 +2,26 @@
     "data": {
         "displayEmbeds": {
             "welcome": {
-                "title": "Thank you for using {{COM:bot.name}}!",
-                "description": ["{{REF:bot.description}}"],
+                "type": "rich",
+                "title": "Thank you for adding the Mookie Bot!",
+                "description": "",
+                "color": "0068f1",
                 "fields": [
                     {
-                        "name": "Important {{REF:fields.commands}}",
-                        "value": ["{{CMD_LINK_HELP}} - {{REF:commandDescs.help}}"]
+                        "name": "Current Features:",
+                        "value": "Making Bets, Kermit Month Annoucement",
+                        "inline": true
                     },
                     {
-                        "name": "{{REF:fields.links}}",
-                        "value": ["{{REF:links.docsEmbed}}", "{{REF:links.supportEmbed}}"]
+                        "name": "Here's some Mookie highlights to brighten up your day :D",
+                        "value": "https://www.youtube.com/watch?v=3qcP0M9KV28"
+                    },
+                    {
+                        "name": "\u200B",
+                        "value": "More features to come soon"
                     }
-                ]
+                ],
+                "image": "https://media.discordapp.net/attachments/931358927478734929/1083934112118739045/mookieTerminator.png"
             },
             "helpContactSupport": {
                 "title": "Help - {{REF:helpOptions.contactSupport}}",
@@ -127,6 +135,7 @@
             },
             "betCommands": {
                 "title": "{{BET_NAME}}",
+                "thumbnail": "https://media.discordapp.net/attachments/1122737373466329148/1122747423962452129/money_mookie.png",
                 "color": 12267905,
                 "fields": [
                     {
@@ -146,6 +155,14 @@
                 "footer": {
                     "text": "Mookie Bot's Bets!"
                 }
+            },
+            "kermitMonth": {
+                "type": "rich",
+                "title": "Kermit Month is here!",
+                "description": "Time for us to celebrate the one and only Kermit!",
+                "color": "7ED321",
+                "image": "https://cdn.discordapp.com/attachments/1122737373466329148/1124221117385670716/mookermit.png",
+                "url": "https://www.youtube.com/watch?v=MLkuM_cWJhw"
             }
         },
         "validationEmbeds": {

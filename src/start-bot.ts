@@ -3,7 +3,7 @@ import { Options, Partials } from 'discord.js';
 import { createRequire } from 'node:module';
 
 import { Button } from './buttons/index.js';
-import { BetCommand, HelpCommand, InfoCommand, TestCommand } from './commands/chat/index.js';
+import { BetCommand } from './commands/chat/index.js';
 import {
     ChatCommandMetadata,
     Command,
@@ -22,7 +22,7 @@ import {
     TriggerHandler,
 } from './events/index.js';
 import { CustomClient } from './extensions/index.js';
-import { Job } from './jobs/index.js';
+import { AnnounceKermitMonth, Job } from './jobs/index.js';
 import { Bot } from './models/bot.js';
 import { Reaction } from './reactions/index.js';
 import {
@@ -56,9 +56,6 @@ async function start(): Promise<void> {
     // Commands
     let commands: Command[] = [
         // Chat Commands
-        new HelpCommand(),
-        new InfoCommand(),
-        new TestCommand(),
         new BetCommand(),
 
         // Message Context Commands
@@ -97,6 +94,7 @@ async function start(): Promise<void> {
     // Jobs
     let jobs: Job[] = [
         // TODO: Add new jobs here
+        new AnnounceKermitMonth(client),
     ];
 
     // Bot
