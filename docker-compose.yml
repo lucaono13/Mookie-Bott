@@ -1,5 +1,5 @@
 services:
-  mookieBot:
+  mookie-bot:
     build: .
     ports:
       - "3001:3001"
