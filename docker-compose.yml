@@ -4,5 +4,5 @@ services:
     ports:
       - "3001:3001"
     environment:
-      - CLIENT_ID=1118777816947892346
-      - CLIENT_TOKEN=
+      - CLIENT_ID=${CLIENT_ID}
+      - CLIENT_TOKEN=${CLIENT_TOKEN}
