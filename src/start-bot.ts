@@ -38,6 +38,11 @@ let Config = require('../config/config.json');
 let Logs = require('../lang/logs.json');
 
 async function start(): Promise<void> {
+    // Get env variables
+    require('dotenv').config();
+    Config.client.token = process.env.CLIENT_TOKEN;
+    Config.client.id = process.env.CLIENT_ID;
+
     // Services
     let eventDataService = new EventDataService();
 
