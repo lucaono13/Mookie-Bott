@@ -3,6 +3,10 @@ FROM node:16
 # Create app directory
 WORKDIR /app
 
+# ENV Variables
+ENV CLIENT_ID 0
+ENV CLIENT_TOKEN 0
+
 # Copy package.json and package-lock.json
 COPY package*.json ./
 
