@@ -11,6 +11,7 @@ ENV CLIENT_TOKEN 0
 COPY package*.json ./
 COPY yarn*.lock ./
 
+RUN yarn set version berry
 # Install packages
 RUN yarn install
 
