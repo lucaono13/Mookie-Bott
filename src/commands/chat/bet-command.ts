@@ -10,7 +10,7 @@ import {
 import { Language } from '../../models/enum-helpers/index.js';
 import { EventData } from '../../models/internal-models.js';
 import { Lang } from '../../services/index.js';
-import { ClientUtils, MessageUtils } from '../../utils/index.js';
+import { ClientUtils, InteractionUtils, MessageUtils } from '../../utils/index.js';
 import { Command, CommandDeferType } from '../index.js';
 
 export class BetCommand implements Command {
@@ -21,6 +21,7 @@ export class BetCommand implements Command {
     public requireClientPerms: PermissionsString[] = [];
 
     public async execute(intr: ChatInputCommandInteraction, data: EventData): Promise<void> {
+        intr.ephemeral = true;
         let args = {
             bet: intr.options.getString('bet', true),
             stakes: intr.options.getString('stakes', true),
@@ -42,7 +43,10 @@ export class BetCommand implements Command {
             intr.guild,
             'mookie-bets'
         );
+
         // Sends the bet to the bets channel only
+        // TODO: fix this so it actually is ephemeral and doesn't show up
+        await InteractionUtils.send(intr, 'Bet created in the bets channel!', true);
         await MessageUtils.send(betsChannel, embed);
     }
 }
