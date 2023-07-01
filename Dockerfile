@@ -9,6 +9,7 @@ ENV CLIENT_TOKEN 0
 
 # Copy package.json and package-lock.json
 COPY package*.json ./
+COPY yarn.lock ./
 
 # Install packages
 RUN yarn install
