@@ -17,8 +17,6 @@ RUN yarn install
 # Copy the app code
 COPY . .
 
-RUN yarn start
-
 # Build the project
 RUN yarn build
 
