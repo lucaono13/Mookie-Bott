@@ -8,9 +8,10 @@ ENV CLIENT_ID 0
 ENV CLIENT_TOKEN 0
 
 # Copy package.json and package-lock.json
-COPY package*.json ./
-COPY yarn*.lock ./
+COPY package*.json .
+COPY yarn*.lock .
 
+RUN yarn set version berry
 # Install packages
 RUN yarn install
 
