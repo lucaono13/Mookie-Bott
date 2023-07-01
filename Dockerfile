@@ -18,7 +18,7 @@ RUN yarn install
 COPY . .
 
 # Build the project
-RUN yarn build
+RUN yarn run build
 
 # Expose ports
 EXPOSE 3001
