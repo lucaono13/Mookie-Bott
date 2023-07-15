@@ -1,6 +1,6 @@
 services:
-  mookie-bot:
-    build: .
+  mookie-bott:
+    image: ghcr.io/dctaylor/mookiebott:latest	
     ports:
       - "3001:3001"
     environment:
