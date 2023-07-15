@@ -21,6 +21,9 @@ COPY . .
 # Build the project
 RUN yarn run build
 
+# Register commands
+RUN yarn run commands:register
+
 # Expose ports
 EXPOSE 3001
 
