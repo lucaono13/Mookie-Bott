@@ -24,4 +24,4 @@ jobs:
           - name: 'Build Inventory Image'
             run: |
               docker build . --file Dockerfile --tag ghcr.io/dctaylor/mookiebott:latest
-              docker push ghcr.io/Dctaylor/store:latest
+              docker push ghcr.io/dctaylor/mookiebott:latest
