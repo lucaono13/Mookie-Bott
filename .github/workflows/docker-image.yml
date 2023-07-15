@@ -1,18 +1,25 @@
 name: Docker Image CI
 
 on:
-  push:
-    branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
 
 jobs:
 
-  build:
+  push-store-image:
+        runs-on: ubuntu-latest
+        steps:
+          - name: 'Checkout GitHub Action'
+            uses: actions/checkout@main
 
-    runs-on: ubuntu-latest
+          - name: 'Login to GitHub Container Registry'
+            uses: docker/login-action@v1
+            with:
+              registry: ghcr.io
+              username: Dctaylor
+              password: ${{secrets.TOKEN_TO_PUSH_IMAGE_TO_GHCR}}
 
-    steps:
-    - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+          - name: 'Build Inventory Image'
+            run: |
+              docker build . --file Dockerfile --tag ghcr.io/Dctaylor/mookieBott:latest
+              docker push ghcr.io/Dctaylor/store:latest
