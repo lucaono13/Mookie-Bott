@@ -1,4 +1,5 @@
 FROM node:16
+LABEL org.opencontainers.image.source="https://github.com/dctaylor/mookiebot"
 
 # Create app directory
 WORKDIR /app
