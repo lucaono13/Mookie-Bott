@@ -1,8 +1,6 @@
 name: Docker Image CI
 
 on:
-  push:
-    branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
 
@@ -17,7 +15,7 @@ jobs:
             uses: docker/login-action@v1
             with:
               registry: ghcr.io
-              username: Dctaylor
+              username: dctaylor
               password: ${{secrets.TOKEN_TO_PUSH_IMAGE_TO_GHCR}}
 
           - name: 'Build Inventory Image'

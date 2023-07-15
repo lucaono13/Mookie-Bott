@@ -115,7 +115,27 @@ async function start(): Promise<void> {
         new JobService(jobs)
     );
 
-    // Register Commands
+    // Register Commands when running: yarn run commands
+    if (process.argv[2] == 'commands') {
+        try {
+            let rest = new REST({ version: '10' }).setToken(Config.client.token);
+            let commandRegistrationService = new CommandRegistrationService(rest);
+            let localCmds = [
+                ...Object.values(ChatCommandMetadata).sort((a, b) => (a.name > b.name ? 1 : -1)),
+                ...Object.values(MessageCommandMetadata).sort((a, b) => (a.name > b.name ? 1 : -1)),
+                ...Object.values(UserCommandMetadata).sort((a, b) => (a.name > b.name ? 1 : -1)),
+            ];
+            await commandRegistrationService.process(localCmds, process.argv);
+        } catch (error) {
+            Logger.error(Logs.error.commandAction, error);
+        }
+        // Wait for any final logs to be written.
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        // Will exit the process after
+        process.exit();
+    }
+
+    // Register commands when starting bot
     try {
         let rest = new REST({ version: '10' }).setToken(Config.client.token);
         let commandRegistrationService = new CommandRegistrationService(rest);
