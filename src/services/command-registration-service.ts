@@ -17,6 +17,51 @@ let Logs = require('../../lang/logs.json');
 export class CommandRegistrationService {
     constructor(private rest: REST) {}
 
+    public async registerCommands(
+        localCmds: RESTPostAPIApplicationCommandsJSONBody[]
+    ): Promise<void> {
+        let remoteCmds = (await this.rest.get(
+            Routes.applicationCommands(Config.client.id)
+        )) as RESTGetAPIApplicationCommandsResult;
+
+        let localCmdsOnRemote = localCmds.filter(localCmd =>
+            remoteCmds.some(remoteCmd => remoteCmd.name === localCmd.name)
+        );
+        let localCmdsOnly = localCmds.filter(
+            localCmd => !remoteCmds.some(remoteCmd => remoteCmd.name === localCmd.name)
+        );
+
+        if (localCmdsOnly.length > 0) {
+            Logger.info(
+                Logs.info.commandActionCreating.replaceAll(
+                    '{COMMAND_LIST}',
+                    this.formatCommandList(localCmdsOnly)
+                )
+            );
+            for (let localCmd of localCmdsOnly) {
+                await this.rest.post(Routes.applicationCommands(Config.client.id), {
+                    body: localCmd,
+                });
+            }
+            Logger.info(Logs.info.commandActionCreated);
+        }
+
+        if (localCmdsOnRemote.length > 0) {
+            Logger.info(
+                Logs.info.commandActionUpdating.replaceAll(
+                    '{COMMAND_LIST}',
+                    this.formatCommandList(localCmdsOnRemote)
+                )
+            );
+            for (let localCmd of localCmdsOnRemote) {
+                await this.rest.post(Routes.applicationCommands(Config.client.id), {
+                    body: localCmd,
+                });
+            }
+            Logger.info(Logs.info.commandActionUpdated);
+        }
+    }
+
     public async process(
         localCmds: RESTPostAPIApplicationCommandsJSONBody[],
         args: string[]

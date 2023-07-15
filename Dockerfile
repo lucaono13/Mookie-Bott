@@ -18,11 +18,12 @@ RUN yarn install
 # Copy the app code
 COPY . .
 
+# RUN yarn install
+
 # Build the project
 RUN yarn run build
 
-# Register commands
-RUN yarn run commands:register
+# RUN yarn run commands:register
 
 # Expose ports
 EXPOSE 3001
