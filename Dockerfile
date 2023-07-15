@@ -16,7 +16,7 @@ RUN yarn set version berry
 RUN yarn install
 
 # Copy the app code
-# COPY . .
+COPY . .
 
 # RUN yarn install
 
