@@ -5,7 +5,7 @@
 [![Stars](https://img.shields.io/github/stars/KevinNovak/Discord-Bot-TypeScript-Template.svg)](https://github.com/KevinNovak/Discord-Bot-TypeScript-Template/stargazers)
 [![Pull Requests](https://img.shields.io/badge/Pull%20Requests-Welcome!-brightgreen)](https://github.com/KevinNovak/Discord-Bot-TypeScript-Template/pulls)
 
-**Discord bot** - A discord.js bot template written with TypeScript.
+**Mookie Bott** - A discord.js bot written with TypeScript based on a template.
 
 ## Introduction
 
