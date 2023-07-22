@@ -1,6 +1,7 @@
 import {
     ChatInputCommandInteraction,
     EmbedBuilder,
+    Message,
     NewsChannel,
     PermissionsString,
     TextChannel,
@@ -10,7 +11,7 @@ import {
 import { Language } from '../../models/enum-helpers/index.js';
 import { EventData } from '../../models/internal-models.js';
 import { Lang } from '../../services/index.js';
-import { ClientUtils, InteractionUtils, MessageUtils } from '../../utils/index.js';
+import { ClientUtils, FormatUtils, InteractionUtils, MessageUtils } from '../../utils/index.js';
 import { Command, CommandDeferType } from '../index.js';
 
 export class BetCommand implements Command {
@@ -46,7 +47,13 @@ export class BetCommand implements Command {
 
         // Sends the bet to the bets channel only
         // TODO: fix this so it actually is ephemeral and doesn't show up
-        await InteractionUtils.send(intr, 'Bet created in the bets channel!', true);
-        await MessageUtils.send(betsChannel, embed);
+        await InteractionUtils.send(
+            intr,
+            'Bet created in ' + FormatUtils.channelMention(betsChannel.id),
+            true
+        );
+        // await InteractionUtils.send(intr, 'Bet created in the bets channel!', true);
+        let sentMsg: Message = await MessageUtils.send(betsChannel, embed);
+        await MessageUtils.pin(sentMsg, true);
     }
 }
