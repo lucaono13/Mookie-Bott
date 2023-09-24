@@ -31,7 +31,7 @@ import {
     JobService,
     Logger,
 } from './services/index.js';
-import { Trigger } from './triggers/index.js';
+import { SpelltableLinkTrigger, Trigger } from './triggers/index.js';
 
 const require = createRequire(import.meta.url);
 let Config = require('../config/config.json');
@@ -85,6 +85,7 @@ async function start(): Promise<void> {
     // Triggers
     let triggers: Trigger[] = [
         // TODO: Add new triggers here
+        new SpelltableLinkTrigger(),
     ];
 
     // Event handlers
@@ -136,18 +137,18 @@ async function start(): Promise<void> {
     }
 
     // Register commands when starting bot
-    try {
-        let rest = new REST({ version: '10' }).setToken(Config.client.token);
-        let commandRegistrationService = new CommandRegistrationService(rest);
-        let localCmds = [
-            ...Object.values(ChatCommandMetadata).sort((a, b) => (a.name > b.name ? 1 : -1)),
-            ...Object.values(MessageCommandMetadata).sort((a, b) => (a.name > b.name ? 1 : -1)),
-            ...Object.values(UserCommandMetadata).sort((a, b) => (a.name > b.name ? 1 : -1)),
-        ];
-        await commandRegistrationService.registerCommands(localCmds);
-    } catch (error) {
-        Logger.error(Logs.error.commandAction, error);
-    }
+    // try {
+    //     let rest = new REST({ version: '10' }).setToken(Config.client.token);
+    //     let commandRegistrationService = new CommandRegistrationService(rest);
+    //     let localCmds = [
+    //         ...Object.values(ChatCommandMetadata).sort((a, b) => (a.name > b.name ? 1 : -1)),
+    //         ...Object.values(MessageCommandMetadata).sort((a, b) => (a.name > b.name ? 1 : -1)),
+    //         ...Object.values(UserCommandMetadata).sort((a, b) => (a.name > b.name ? 1 : -1)),
+    //     ];
+    //     await commandRegistrationService.registerCommands(localCmds);
+    // } catch (error) {
+    //     Logger.error(Logs.error.commandAction, error);
+    // }
     // Wait for any final logs to be written.
     await new Promise(resolve => setTimeout(resolve, 1000));
 
