@@ -1,4 +1,4 @@
-FROM node:16
+FROM node:20
 LABEL org.opencontainers.image.source="https://github.com/dctaylor/mookiebot"
 
 # Create app directory
@@ -12,7 +12,7 @@ ENV CLIENT_TOKEN 0
 COPY package*.json ./
 COPY yarn*.lock ./
 
-# RUN yarn set version berry
+RUN yarn set version berry
 # Install packages
 RUN yarn install
 
