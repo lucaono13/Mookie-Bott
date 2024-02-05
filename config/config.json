@@ -3,6 +3,8 @@
     "client": {
         "id": "",
         "token": "",
+        "spotify_id": "",
+        "spotify_secret": "",
         "intents": [
             "Guilds",
             "GuildMessages",

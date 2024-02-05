@@ -42,6 +42,8 @@ async function start(): Promise<void> {
     require('dotenv').config();
     Config.client.token = process.env.CLIENT_TOKEN;
     Config.client.id = process.env.CLIENT_ID;
+    Config.client.spotify_id = process.env.SPOTIFY_ID;
+    Config.client.spotify_secret = process.env.SPOTIFY_SECRET;
 
     // Services
     let eventDataService = new EventDataService();
