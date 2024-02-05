@@ -13,7 +13,7 @@ export class SpelltableLinkTrigger implements Trigger {
     public requireGuild = false;
 
     public triggered(msg: Message): boolean {
-        if (msg.content.match('https://spelltable.wizards.com/game/[a-zA-Z0-9]+') != null) {
+        if (msg.content.match('https://spelltable.wizards.com/game/\\S+') != null) {
             return true;
         }
         return false;
@@ -21,7 +21,7 @@ export class SpelltableLinkTrigger implements Trigger {
 
     public async execute(msg: Message, _: EventData): Promise<void> {
         let spelltableLink: string[] = msg.content.match(
-            'https://spelltable.wizards.com/game/[a-zA-Z0-9]+'
+            'https://spelltable.wizards.com/game/\\S+'
         );
 
         // let payload: MessagePayload = new MessagePayload(
