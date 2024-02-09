@@ -31,7 +31,12 @@ import {
     JobService,
     Logger,
 } from './services/index.js';
-import { SpelltableLinkTrigger, Trigger } from './triggers/index.js';
+import {
+    HemomancerHmm,
+    HemomancerReplace,
+    SpelltableLinkTrigger,
+    Trigger,
+} from './triggers/index.js';
 
 const require = createRequire(import.meta.url);
 let Config = require('../config/config.json');
@@ -86,6 +91,8 @@ async function start(): Promise<void> {
     let triggers: Trigger[] = [
         // TODO: Add new triggers here
         new SpelltableLinkTrigger(),
+        new HemomancerHmm(),
+        new HemomancerReplace(),
     ];
 
     // Event handlers
