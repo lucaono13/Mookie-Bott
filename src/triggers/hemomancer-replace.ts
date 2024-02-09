@@ -63,6 +63,9 @@ export class HemomancerReplace implements Trigger {
 
     public async execute(msg: Message, _: EventData): Promise<void> {
         let content: string = msg.content;
+        if (msg.author.id == '268547439714238465') {
+            return;
+        }
         Object.keys(this.hemomancerWords).forEach(word => {
             content = content.replace(word, this.hemomancerWords[word]);
         });
