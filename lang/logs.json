@@ -26,7 +26,8 @@
         "guildJoined": "Guild '{GUILD_NAME}' ({GUILD_ID}) joined.",
         "guildLeft": "Guild '{GUILD_NAME}' ({GUILD_ID}) left.",
         "spelltable": "Spelltable spectator link '{SPELLTABLE_LINK}' created.",
-        "hmmmm": "hmmmm"
+        "hmmmm": "hmmmm",
+        "hemomancer": "Changed words to hemomancer words."
     },
     "warn": {
         "managerNoShards": "No shards to spawn."

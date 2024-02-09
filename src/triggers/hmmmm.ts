@@ -13,7 +13,7 @@ export class HemomancerHmm implements Trigger {
     public requireGuild = false;
 
     public triggered(msg: Message): boolean {
-        if (msg.content.match('^.*hm{4,}.*$') != null) {
+        if (msg.content.match('^.*[Hh][Mm]{4,}.*$') != null) {
             return true;
         }
         return false;
