@@ -20,6 +20,9 @@ export class HemomancerHmm implements Trigger {
     }
 
     public async execute(msg: Message, _: EventData): Promise<void> {
+        if (msg.author.id == '268547439714238465') {
+            return;
+        }
         msg.reply({
             files: [{ attachment: './src/img/hmmmm.jpeg' }],
             allowedMentions: { repliedUser: false },
