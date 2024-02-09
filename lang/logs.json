@@ -25,7 +25,8 @@
         "updatedServerCountSite": "Updated server count on '{BOT_SITE}'.",
         "guildJoined": "Guild '{GUILD_NAME}' ({GUILD_ID}) joined.",
         "guildLeft": "Guild '{GUILD_NAME}' ({GUILD_ID}) left.",
-        "spelltable": "Spelltable spectator link '{SPELLTABLE_LINK}' created."
+        "spelltable": "Spelltable spectator link '{SPELLTABLE_LINK}' created.",
+        "hmmmm": "hmmmm"
     },
     "warn": {
         "managerNoShards": "No shards to spawn."
