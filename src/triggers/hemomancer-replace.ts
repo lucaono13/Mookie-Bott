@@ -51,7 +51,8 @@ export class HemomancerReplace implements Trigger {
     public triggered(msg: Message): boolean {
         let toTrigger = false;
         Object.keys(this.hemomancerWords).forEach(word => {
-            if (msg.content.includes(word) == true) {
+            let wordReg = new RegExp('\\b' + word, 'g');
+            if (wordReg.test(msg.content)) {
                 toTrigger = true;
             }
         });
@@ -69,7 +70,8 @@ export class HemomancerReplace implements Trigger {
         }
 
         Object.keys(this.hemomancerWords).forEach(word => {
-            content = content.replace(word, this.hemomancerWords[word]);
+            let regRep = new RegExp('\\b' + word, 'g');
+            content = content.replace(regRep, this.hemomancerWords[word]);
         });
         msg.reply({
             content: content,
