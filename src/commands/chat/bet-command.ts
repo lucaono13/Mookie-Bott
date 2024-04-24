@@ -39,7 +39,7 @@ export class BetCommand implements Command {
 
     public async execute(intr: ChatInputCommandInteraction, data: EventData): Promise<void> {
         const betsForumChannel: GuildBasedChannel = intr.guild.channels.cache.find(
-            channel => channel.name === 'mookie-bott-test-forums'
+            channel => channel.name === 'mookie-betts'
         );
         if (!betsForumChannel) {
             // eslint-disable-next-line quotes
@@ -153,12 +153,6 @@ export class BetCommand implements Command {
                     componentType: ComponentType.Button,
                     time: 0,
                 });
-
-            // if (intr.guild.channels.cache)
-
-            // let betsForumChannel: GuildBasedChannel = await intr.guild.channels.fetch(
-            //     '1229850689241485495'
-            // );
 
             let choice_1s: string[] = [];
             let choice_2s: string[] = [];
