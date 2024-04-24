@@ -48,25 +48,4 @@ export class Args {
             },
         ],
     };
-    public static readonly BET_NAME: APIApplicationCommandBasicOption = {
-        name: 'bet',
-        description: Lang.getRef('betArgsDescs.betName', Language.Default),
-        type: ApplicationCommandOptionType.String,
-    };
-    public static readonly BET_YES: APIApplicationCommandBasicOption = {
-        name: 'yes',
-        description: Lang.getRef('betArgsDescs.betYes', Language.Default),
-        type: ApplicationCommandOptionType.String,
-    };
-    public static readonly BET_NO: APIApplicationCommandBasicOption = {
-        name: 'no',
-        description: Lang.getRef('betArgsDescs.betNo', Language.Default),
-        type: ApplicationCommandOptionType.String,
-    };
-    public static readonly BET_STAKES: APIApplicationCommandBasicOption = {
-        name: 'stakes',
-        description: Lang.getRef('betArgsDescs.betStakes', Language.Default),
-        type: ApplicationCommandOptionType.String,
-    };
-    // public static readonly BET_OPTION: APIapplication
 }

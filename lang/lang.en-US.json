@@ -143,12 +143,16 @@
                         "value": "{{BET_STAKES}}"
                     },
                     {
-                        "name": "Yes",
-                        "value": "{{YES_BETS}}"
+                        "name": "{{CHOICE_1}}",
+                        "value": "{{CHOICE_1_BETS}}"
                     },
                     {
-                        "name": "No",
-                        "value": "{{NO_BETS}}"
+                        "name": "{{CHOICE_2}}",
+                        "value": "{{CHOICE_2_BETS}}"
+                    },
+                    {
+                        "name": "\u200B",
+                        "value": "*Mookie called by {{USER}}*"
                     }
                 ],
                 "timestamp": "2023-06-26T01:19:00.031Z",
@@ -230,7 +234,8 @@
             "help": "help",
             "info": "info",
             "test": "test",
-            "bet": "bet"
+            "bet": "bet",
+            "chatReload": "chatReload"
         },
         "userCommands": {
             "viewDateJoined": "View Date Joined"
