@@ -4,7 +4,7 @@ import {
     RESTPostAPIContextMenuApplicationCommandsJSONBody,
 } from 'discord.js';
 
-import { Args } from './index.js';
+// import { Args } from './index.js';
 import { Language } from '../models/enum-helpers/index.js';
 import { Lang } from '../services/index.js';
 
@@ -19,24 +19,6 @@ export const ChatCommandMetadata: {
         description_localizations: Lang.getRefLocalizationMap('commandDescs.bet'),
         dm_permission: true,
         default_member_permissions: undefined,
-        options: [
-            {
-                ...Args.BET_NAME,
-                required: true,
-            },
-            {
-                ...Args.BET_STAKES,
-                required: true,
-            },
-            {
-                ...Args.BET_YES,
-                required: true,
-            },
-            {
-                ...Args.BET_NO,
-                required: true,
-            },
-        ],
     },
 };
 
