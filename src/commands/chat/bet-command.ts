@@ -243,6 +243,7 @@ export class BetCommand implements Command {
                     CHOICE_1_BETS: choice_1s.join(', '),
                     CHOICE_2: submittedBet.fields.getTextInputValue('choice_2'),
                     CHOICE_2_BETS: choice_2s.join(', '),
+                    USER: intr.user.username,
                 });
                 let createdBet: ThreadChannel = await betsForum.threads.create({
                     name: submittedBet.fields.getTextInputValue('betName'),
