@@ -6,6 +6,8 @@
         "mongodb_url": "",
         "music_db": "",
         "music_collection": "",
+        "server_id": "",
+        "music_channel_name": "",
         "intents": [
             "Guilds",
             "GuildMessages",

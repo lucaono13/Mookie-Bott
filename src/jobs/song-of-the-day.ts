@@ -56,10 +56,10 @@ export class SongOfTheDay implements Job {
         await musicCol.updateOne({ id: selectedNumber }, { $set: { selected: true } });
 
         // Get music channel
-        let theGuild: Guild = await ClientUtils.getGuild(this.client, '356301678217134080');
+        let theGuild: Guild = await ClientUtils.getGuild(this.client, Config.client.server_id);
         let musicChannel: TextChannel | NewsChannel = await ClientUtils.findTextChannel(
             theGuild,
-            'music'
+            Config.client.music_channel_name
         );
 
         // Create and send embed with music

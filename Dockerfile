@@ -7,6 +7,11 @@ WORKDIR /app
 # ENV Variables
 ENV CLIENT_ID 0
 ENV CLIENT_TOKEN 0
+ENV MONGODB_URL="mongodb://"
+ENV MUSIC_DB=music
+ENV MUSIC_COLLECTION=music
+ENV SERVER_ID=
+ENV MUSIC_CHANNEL_NAME=music
 
 # Copy package.json and package-lock.json
 COPY package*.json ./

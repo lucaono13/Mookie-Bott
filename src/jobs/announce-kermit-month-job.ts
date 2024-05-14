@@ -22,7 +22,7 @@ export class AnnounceKermitMonth implements Job {
 
     public async run(): Promise<void> {
         // TODO: Remove the guild being hard-coded
-        let theGuild: Guild = await ClientUtils.getGuild(this.client, '356301678217134080');
+        let theGuild: Guild = await ClientUtils.getGuild(this.client, Config.client.server_id);
         // Change the server icon and banner
         theGuild.setIcon(
             'https://media.discordapp.net/attachments/1122737373466329148/1124221117385670716/mookermit.png?width=563&height=563'
