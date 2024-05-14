@@ -53,6 +53,8 @@ async function start(): Promise<void> {
     Config.client.server_id = process.env.SERVER_ID;
     Config.client.music_channel_name = process.env.MUSIC_CHANNEL_NAME;
 
+    Logger.info(Config.client.mongodb_url);
+
     // Services
     let eventDataService = new EventDataService();
 
