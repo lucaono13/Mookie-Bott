@@ -22,7 +22,7 @@ import {
     TriggerHandler,
 } from './events/index.js';
 import { CustomClient } from './extensions/index.js';
-import { AnnounceKermitMonth, Job } from './jobs/index.js';
+import { AnnounceKermitMonth, Job, SongOfTheDay } from './jobs/index.js';
 import { Bot } from './models/bot.js';
 import { Reaction } from './reactions/index.js';
 import {
@@ -47,6 +47,11 @@ async function start(): Promise<void> {
     require('dotenv').config();
     Config.client.token = process.env.CLIENT_TOKEN;
     Config.client.id = process.env.CLIENT_ID;
+    Config.client.mongodb_url = process.env.MONGODB_URL;
+    Config.client.music_db = process.env.MUSIC_DB;
+    Config.client.music_collection = process.env.MUSIC_COLLECTION;
+    Config.client.server_id = process.env.SERVER_ID;
+    Config.client.music_channel_name = process.env.MUSIC_CHANNEL_NAME;
 
     // Services
     let eventDataService = new EventDataService();
@@ -108,6 +113,7 @@ async function start(): Promise<void> {
     let jobs: Job[] = [
         // TODO: Add new jobs here
         new AnnounceKermitMonth(client),
+        new SongOfTheDay(client),
     ];
 
     // Bot

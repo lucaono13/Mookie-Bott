@@ -3,6 +3,11 @@
     "client": {
         "id": "",
         "token": "",
+        "mongodb_url": "",
+        "music_db": "",
+        "music_collection": "",
+        "server_id": "",
+        "music_channel_name": "",
         "intents": [
             "Guilds",
             "GuildMessages",
@@ -50,6 +55,10 @@
         },
         "kermitMonth": {
             "schedule": "0 30 8 1 7 *",
+            "log": false
+        },
+        "songOfTheDay": {
+            "schedule": "0 0 9 * * *",
             "log": false
         }
     },
