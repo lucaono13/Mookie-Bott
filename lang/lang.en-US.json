@@ -167,6 +167,35 @@
                 "color": "7ED321",
                 "image": "https://cdn.discordapp.com/attachments/1122737373466329148/1124221117385670716/mookermit.png",
                 "url": "https://www.youtube.com/watch?v=MLkuM_cWJhw"
+            },
+            "songOfTheDay": {
+                "author": {
+                    "name": "Mookie's Song of the Day - {{DATE}}"
+                },
+                "title": "{{SONG_NAME}}",
+                "url": "{{SONG_URL}}",
+                "fields": [
+                    {
+                        "name": "Artist(s):",
+                        "value": "{{ARTISTS}}"
+                    },
+                    {
+                        "name": "Album:",
+                        "value": "{{ALBUM_NAME}}"
+                    },
+                    {
+                        "name": "Duration:",
+                        "value": "{{DURATION}}",
+                        "inline": true
+                    },
+                    {
+                        "name": "Spotify Popularity",
+                        "value": "{{POPULARITY}}",
+                        "inline": true
+                    }
+                ],
+                "image": "{{ALBUM_IMAGE}}",
+                "color": "#f58f00"
             }
         },
         "validationEmbeds": {
