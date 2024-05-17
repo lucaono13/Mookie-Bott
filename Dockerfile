@@ -12,6 +12,7 @@ ENV MUSIC_DB=music
 ENV MUSIC_COLLECTION=music
 ENV SERVER_ID=
 ENV MUSIC_CHANNEL_NAME=music
+ENV TZ="America/Los_Angeles"
 
 # Copy package.json and package-lock.json
 COPY package*.json ./

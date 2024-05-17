@@ -26,12 +26,19 @@ export class SongOfTheDay implements Job {
 
     private convertMS(ms: number): string {
         let total_seconds = Math.floor(ms / 1000);
-        let total_minutes = Math.floor(ms / 60);
+        let total_minutes = Math.floor(total_seconds / 60);
 
         let seconds = total_seconds % 60;
         let minutes = total_minutes % 60;
 
         return `${minutes}:${seconds}`;
+    }
+
+    private convertDate(date: string): string {
+        let epochDate = Date.parse(date);
+        let dateObj = new Date(epochDate);
+
+        return `${dateObj.getMonth() + 1}/${dateObj.getDate()}/${dateObj.getFullYear()}`;
     }
 
     public async run(): Promise<void> {
@@ -72,6 +79,7 @@ export class SongOfTheDay implements Job {
             DURATION: this.convertMS(song['duration']),
             POPULARITY: song['popularity'],
             ALBUM_IMAGE: song['album']['image'],
+            RELEASE_DATE: this.convertDate(song['release_date']),
         });
         await MessageUtils.send(musicChannel, embed);
     }
