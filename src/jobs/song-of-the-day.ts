@@ -26,7 +26,7 @@ export class SongOfTheDay implements Job {
 
     private convertMS(ms: number): string {
         let total_seconds = Math.floor(ms / 1000);
-        let total_minutes = Math.floor(ms / 60);
+        let total_minutes = Math.floor(total_seconds / 60);
 
         let seconds = total_seconds % 60;
         let minutes = total_minutes % 60;
