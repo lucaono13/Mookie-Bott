@@ -34,6 +34,13 @@ export class SongOfTheDay implements Job {
         return `${minutes}:${seconds}`;
     }
 
+    private convertDate(date: string): string {
+        let epochDate = Date.parse(date);
+        let dateObj = new Date(epochDate);
+
+        return `${dateObj.getMonth() + 1}/${dateObj.getDate()}/${dateObj.getFullYear()}`;
+    }
+
     public async run(): Promise<void> {
         const mongoClient = new MongoClient(Config.client.mongodb_url);
         let dateOptions: DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -72,6 +79,7 @@ export class SongOfTheDay implements Job {
             DURATION: this.convertMS(song['duration']),
             POPULARITY: song['popularity'],
             ALBUM_IMAGE: song['album']['image'],
+            RELEASE_DATE: this.convertDate(song['release_date']),
         });
         await MessageUtils.send(musicChannel, embed);
     }

@@ -192,6 +192,11 @@
                         "name": "Spotify Popularity",
                         "value": "{{POPULARITY}}",
                         "inline": true
+                    },
+                    {
+                        "name": "Release Date",
+                        "value": "{{RELEASE_DATE}}",
+                        "inline": true
                     }
                 ],
                 "image": "{{ALBUM_IMAGE}}",
