@@ -28,7 +28,9 @@
         "spelltable": "Spelltable spectator link '{SPELLTABLE_LINK}' created.",
         "hmmmm": "hmmmm",
         "hemomancer": "Changed words to hemomancer words.",
-        "randomValueDump": "{VALUE}"
+        "randomValueDump": "{VALUE}",
+        "kermitMonth": "Kermit month starts!",
+        "songOfTheDay": "Song of the Day created!"
     },
     "warn": {
         "managerNoShards": "No shards to spawn."

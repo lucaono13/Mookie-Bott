@@ -3,11 +3,12 @@ import { createRequire } from 'node:module';
 
 import { Job } from './index.js';
 import { Language } from '../models/enum-helpers/language.js';
-import { Lang } from '../services/index.js';
+import { Lang, Logger } from '../services/index.js';
 import { ClientUtils, MessageUtils } from '../utils/index.js';
 
 const require = createRequire(import.meta.url);
 let Config = require('../../config/config.json');
+let Logs = require('../../lang/logs.json');
 
 export class AnnounceKermitMonth implements Job {
     public name = 'Announce Kermit Month';
@@ -36,6 +37,7 @@ export class AnnounceKermitMonth implements Job {
             Language.Default
         );
         let embed: EmbedBuilder = Lang.getEmbed('displayEmbeds.kermitMonth', Language.Default);
+        Logger.info(Logs.info.kermitMonth);
         await MessageUtils.send(notifyChannel, embed);
     }
 }
