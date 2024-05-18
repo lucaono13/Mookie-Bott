@@ -54,11 +54,11 @@
             "log": false
         },
         "kermitMonth": {
-            "schedule": "0 30 8 1 7 *",
+            "schedule": "0 30 16 1 7 *",
             "log": false
         },
         "songOfTheDay": {
-            "schedule": "0 0 9 * * *",
+            "schedule": "0 0 17 * * *",
             "log": false
         }
     },

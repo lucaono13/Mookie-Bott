@@ -5,13 +5,14 @@ import { createRequire } from 'node:module';
 
 import { Job } from './index.js';
 import { Language } from '../models/enum-helpers/language.js';
-import { Lang } from '../services/index.js';
+import { Lang, Logger } from '../services/index.js';
 import { ClientUtils } from '../utils/client-utils.js';
 import { MessageUtils } from '../utils/message-utils.js';
 
 const require = createRequire(import.meta.url);
 
 let Config = require('../../config/config.json');
+let Logs = require('../../lang/logs.json');
 
 export class SongOfTheDay implements Job {
     public name = 'Song of the Day';
@@ -81,6 +82,7 @@ export class SongOfTheDay implements Job {
             ALBUM_IMAGE: song['album']['image'],
             RELEASE_DATE: this.convertDate(song['release_date']),
         });
+        Logger.info(Logs.info.songOfTheDay);
         await MessageUtils.send(musicChannel, embed);
     }
 }
