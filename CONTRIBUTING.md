@@ -36,7 +36,8 @@ These are found in the `src/jobs` folder. Each job is separated into its own fil
 
 For developing a job you need to add a cron schedule to `config/config.json`. I use [this site](https://crontab.cronhub.io) to create cron expressions since it supports 6 fields (in order: second, minute, hour, day of month, month, day of week).
 
-> [!CAUTION] > **Do not set the cron job to be quicker than 1 time per minute. Please be reasonable in your scheduling**
+> [!CAUTION]
+> **Do not set the cron job to be quicker than 1 time per minute. Please be reasonable in your scheduling**
 
 -   To add the job to the bot <sup>_does not need to be registered_</sup>
     1. Add job function to the `index.ts` in the `src/jobs` folder.
