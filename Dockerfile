@@ -18,6 +18,9 @@ ENV TZ="America/Los_Angeles"
 COPY package*.json ./
 COPY yarn*.lock ./
 
+# Change in how yarn works, need to enable corepack now
+RUN corepack enable
+
 RUN yarn set version berry
 # Install packages
 RUN yarn install
