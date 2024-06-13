@@ -3,7 +3,9 @@
 ## Branches
 
 ### New Feature
-When creating a new feature, branch from develop and name it "feature/{feature_name}"
+When creating a new feature, branch from develop and name it "feature/{feature_name}".
+
+If there is an issue for that feature, name it "feature/{issue_number}{issue_title}"
 
 ## Commands
 
