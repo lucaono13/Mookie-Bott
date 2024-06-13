@@ -1,5 +1,10 @@
 # Developing Commands/Triggers/Jobs
 
+## Branches
+
+### New Feature
+When creating a new feature, branch from develop and name it "feature/{feature_name}"
+
 ## Commands
 
 These are usually slash commands (using `/` in chat), but there is also message and user commands which appear when you right click on a message or profile that run a command based on the message/profile that was selected.
