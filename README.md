@@ -6,123 +6,69 @@
 
 **Mookie Bott** - A discord.js bot written with TypeScript based on a template.
 
-## Introduction
+## Commands/Triggers/Jobs
 
-This template was created to give developers a starting point for new Discord bots, so that much of the initial setup can be avoided and developers can instead focus on meaningful bot features. Developers can simply copy this repo, follow the [setup instructions](#setup) below, and have a working bot with many [boilerplate features](#features) already included!
+1. Bet _(Command)_
+    - Using input from the user, creates a post in a Forum channel that contains what the bet is, who is on each side and what the stakes are
+    - Pings the users in the bet so they are a part of the post immediately
+2. Hemomancer Replacement _(Trigger)_
+    - Inspired by a popular TikTok, replaces specific words with their "hemomancer" counterpart (i.e. vampire -> hemomancer)
+3. **Hmmmm** _(Trigger)_
+    - Also inspired by the same TikTok for the Hemomancer Replacement trigger, it sends a specific photo whenever a user sends "hmmmm" in any channel (must have at least 4 'm's to trigger)
+4. Spelltable Spectate _(Trigger)_
+    - Whenever someone sends a Spelltable link in any channel, it will reply with the Spelltable spectator link
+5. Kermit Month _(Job)_
+    - Every July 1st at 8:30am, sets the server into Kermit month (changing server banner and icon)
+6. Song of the Day _(Job)_
+    - Every morning at 9am, it queries a MongoDB database for a random song and posts it to the music channel
 
-For help using this template, feel free to [join our support server](https://discord.gg/Vyf6fEWbVr)!
+## Dev Setup (for local)
 
-[![Discord Shield](https://discord.com/api/guilds/660711235766976553/widget.png?style=shield)](https://discord.gg/Vyf6fEWbVr)
-
-## Features
-
-### Built-In Bot Features:
-
--   Basic command structure.
--   Rate limits and command cooldowns.
--   Welcome message when joining a server.
--   Shows server count in bot status.
--   Posts server count to popular bot list websites.
--   Support for multiple languages.
-
-### Developer Friendly:
-
--   Written with TypeScript.
--   Uses the [discord.js](https://discord.js.org/) framework.
--   Built-in debugging setup for VSCode.
--   Written with [ESM](https://nodejs.org/api/esm.html#introduction) for future compatibility with packages.
--   Support for running with the [PM2](https://pm2.keymetrics.io/) process manger.
--   Support for running with [Docker](https://www.docker.com/).
-
-### Scales as Your Bot Grows:
-
--   Supports [sharding](https://discordjs.guide/sharding/) which is required when your bot is in 2500+ servers.
--   Supports [clustering](https://github.com/KevinNovak/Discord-Bot-TypeScript-Template-Master-Api) which allows you to run your bot on multiple machines.
-
-## Commands
-
-This bot has a few example commands which can be modified as needed.
-
-### Help Command
-
-A `/help` command to get help on different areas of the bot or to contact support:
-
-![](https://i.imgur.com/UUA4WzL.png)
-
-![](https://i.imgur.com/YtDdmTe.png)
-
-![](https://i.imgur.com/JXMisap.png)
-
-### Info Command
-
-A `/info` command to get information about the bot, links to different resources, or developer information.
-
-![](https://i.imgur.com/jHp9rSG.png)
-
-![](https://i.imgur.com/cOyCg49.png)
-
-### Test Command
-
-A generic command, `/test`, which can be copied to create additional commands.
-
-![](https://i.imgur.com/lqjkNKM.png)
-
-### Welcome Message
-
-A welcome message is sent to the server and owner when the bot is added.
-
-![](https://i.imgur.com/QBw8H8v.png)
-
-## Setup
-
-1. Copy example config files.
-    - Navigate to the `config` folder of this project.
-    - Copy all files ending in `.example.json` and remove the `.example` from the copied file names.
-        - Ex: `config.example.json` should be copied and renamed as `config.json`.
-2. Obtain a bot token.
+1. Obtain a bot token.
     - You'll need to create a new bot in your [Discord Developer Portal](https://discord.com/developers/applications/).
         - See [here](https://www.writebots.com/discord-bot-token/) for detailed instructions.
-        - At the end you should have a **bot token**.
-3. Modify the config file.
-    - Open the `config/config.json` file.
-    - You'll need to edit the following values:
-        - `client.id` - Your discord bot's [user ID](https://techswift.org/2020/04/22/how-to-find-your-user-id-on-discord/).
-        - `client.token` - Your discord bot's token.
-4. Install packages.
-    - Navigate into the downloaded source files and type `npm install`.
-5. Register commands.
+        - At the end you should have a **bot token**..
+2. Copy the `example.env`
+    - Rename it `.env`.
+    - Edit the following values:
+        - `CLIENT_TOKEN` - Your Discord bot's token.
+        - `CLIENT_ID` - Your discord bot's [user ID](https://techswift.org/2020/04/22/how-to-find-your-user-id-on-discord/).
+        - `SERVER_ID` - Get the channel ID of the server you are going to test on by ensuring that you have developer mod enabled in the Advanced Discord setting. Then right click on the server icon and select `Copy Server ID`.
+        - Optional if you have a MongoDB instance running
+            - `MONGODB_URL` - DB URL usually starting with `mongodb://`
+            - `MUSIC_DB` - The name of the database in MongoDB
+            - `MUSIC_COLLECTION` - The Mongo collection in the database
+3. Install packages.
+    - Ensure that [`yarn`](https://classic.yarnpkg.com/lang/en/docs/install/#windows-stable) is installed.
+    - Navigate into the downloaded directory.
+    - Change yarn version using `yarn set version berry`.
+    - Run the command `yarn install` to install packages.
+4. Register commands.
     - In order to use slash commands, they first [have to be registered](https://discordjs.guide/creating-your-bot/command-deployment.html).
-    - Type `npm run commands:register` to register the bot's commands.
+    - Type `yarn run commands:register` to register the bot's commands.
         - Run this script any time you change a command name, structure, or add/remove commands.
         - This is so Discord knows what your commands look like.
-        - It may take up to an hour for command changes to appear.
+        - It may take up to an hour for command changes to appear. <sup>_In my time working with this bot, it has been very quick to see changes (about a minute if I had to guess)_</sup>
+
+## Console Commands
+
+Commands you can run before starting the bot:
+
+1. `yarn run commands:view`
+    - View all commands registered for the bot
+2. `yarn run commands:register`
+    - Register all commands set in the commands list in `src/start-bot.ts`.
+3. `yarn run commands:rename <OLD_NAME> <NEW_NAME>`
+    - Rename a command
+4. `yarn run commands:delete <COMMAND_NAME>`
+    - Delete a specific command
+5. `yarn run commands:clear`
+    - Delete **all** commands
 
 ## Start Scripts
 
-You can run the bot in multiple modes:
+_Note: We don't need sharding for this bot since we are making this as a single instance_
 
-1. Normal Mode
-    - Type `npm start`.
-    - Starts a single instance of the bot.
-2. Manager Mode
-    - Type `npm run start:manager`.
-    - Starts a shard manager which will spawn multiple bot shards.
-3. PM2 Mode
-    - Type `npm run start:pm2`.
-    - Similar to Manager Mode but uses [PM2](https://pm2.keymetrics.io/) to manage processes.
-
-## Bots Using This Template
-
-A list of Discord bots using this template.
-
-| Bot                                                                    | Servers                                                       |
-| ---------------------------------------------------------------------- | ------------------------------------------------------------- |
-| [Birthday Bot](https://top.gg/bot/656621136808902656)                  | ![](https://top.gg/api/widget/servers/656621136808902656.svg) |
-| [QOTD Bot](https://top.gg/bot/713586207119900693)                      | ![](https://top.gg/api/widget/servers/713586207119900693.svg) |
-| [Friend Time](https://top.gg/bot/471091072546766849)                   | ![](https://top.gg/api/widget/servers/471091072546766849.svg) |
-| [Bento](https://top.gg/bot/787041583580184609)                         | ![](https://top.gg/api/widget/servers/787041583580184609.svg) |
-| [NFT-Info](https://top.gg/bot/902249456072818708)                      | ![](https://top.gg/api/widget/servers/902249456072818708.svg) |
-| [Skylink-IF](https://top.gg/bot/929527099922993162)                    | ![](https://top.gg/api/widget/servers/929527099922993162.svg) |
-| [Topcoder TC-101](https://github.com/topcoder-platform/tc-discord-bot) |                                                               |
-
-Don't see your bot listed? [Contact us](https://discord.gg/Vyf6fEWbVr) to have your bot added!
+-   Normal Mode
+    -   Type `yarn start`.
+    -   Starts a single instance of the bot.
