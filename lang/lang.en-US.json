@@ -201,6 +201,79 @@
                 ],
                 "image": "{{ALBUM_IMAGE}}",
                 "color": "#f58f00"
+            },
+            "hallOfFameRequest": {
+                "author": {
+                    "name": "Hall of Fame Request"
+                },
+                "title": "{{ENTRY_TITLE}}",
+                "url": "{{POST_URL}}",
+                "description": "{{POST_CONTENT}}",
+                "fields": [
+                    {
+                        "name": "Author",
+                        "value": "{{POST_AUTHOR}}"
+                    },
+                    {
+                        "name": "Description/Context",
+                        "value": "{{POST_DESCRIPTION}}"
+                    },
+                    {
+                        "name": "Requester",
+                        "value": "{{REQUESTER}}"
+                    },
+                    {
+                        "name": "Attachments",
+                        "value": "{{FILES}}"
+                    }
+                ],
+
+                "footer": {
+                    "text": "The Bettsment Hall of Fame"
+                },
+                "timestamp": "{{TIME}}"
+            },
+            "hallOfFameEntry_Desc": {
+                "author": {
+                    "name": "Hall of Fame Entry"
+                },
+                "title": "{{ENTRY_TITLE}}",
+                "url": "{{POST_URL}}",
+                "description": "{{POST_CONTENT}}",
+                "fields": [
+                    {
+                        "name": "Posted by",
+                        "value": "{{POST_AUTHOR}}"
+                    },
+                    {
+                        "name": "Description/Context",
+                        "value": "{{POST_DESCRIPTION}}"
+                    }
+                ],
+
+                "footer": {
+                    "text": "The Bettsment Hall of Fame"
+                },
+                "timestamp": "{{TIME}}"
+            },
+            "hallOfFameEntry_NoDesc": {
+                "author": {
+                    "name": "Hall of Fame Entry"
+                },
+                "title": "{{ENTRY_TITLE}}",
+                "url": "{{POST_URL}}",
+                "description": "{{POST_CONTENT}}",
+                "fields": [
+                    {
+                        "name": "Posted by",
+                        "value": "{{POST_AUTHOR}}"
+                    }
+                ],
+
+                "footer": {
+                    "text": "The Bettsment Hall of Fame"
+                },
+                "timestamp": "{{TIME}}"
             }
         },
         "validationEmbeds": {
@@ -275,7 +348,8 @@
             "viewDateJoined": "View Date Joined"
         },
         "messageCommands": {
-            "viewDateSent": "View Date Sent"
+            "viewDateSent": "View Date Sent",
+            "hallOfFame": "Hall of Fame"
         },
         "arguments": {
             "option": "option"
