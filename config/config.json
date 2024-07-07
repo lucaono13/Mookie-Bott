@@ -8,6 +8,8 @@
         "music_collection": "",
         "server_id": "",
         "music_channel_name": "",
+        "admin_channel_id": "",
+        "hall_of_fame_channel_id": "",
         "intents": [
             "Guilds",
             "GuildMessages",
@@ -28,6 +30,12 @@
             "ThreadManager": 0,
             "ThreadMemberManager": 0,
             "VoiceStateManager": 0
+        }
+    },
+    "db": {
+        "requiredCollections": {
+            "music": ["music"],
+            "messages": ["hallOfFame"]
         }
     },
     "api": {

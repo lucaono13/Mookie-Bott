@@ -24,7 +24,13 @@ export const ChatCommandMetadata: {
 
 export const MessageCommandMetadata: {
     [command: string]: RESTPostAPIContextMenuApplicationCommandsJSONBody;
-} = {};
+} = {
+    HOF: {
+        type: ApplicationCommandType.Message,
+        name: Lang.getRef('messageCommands.hallOfFame', Language.Default),
+        default_member_permissions: undefined,
+    },
+};
 
 export const UserCommandMetadata: {
     [command: string]: RESTPostAPIContextMenuApplicationCommandsJSONBody;
