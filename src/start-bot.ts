@@ -10,7 +10,7 @@ import {
     MessageCommandMetadata,
     UserCommandMetadata,
 } from './commands/index.js';
-import { ViewDateSent } from './commands/message/index.js';
+import { HallOfFame, ViewDateSent } from './commands/message/index.js';
 import { ViewDateJoined } from './commands/user/index.js';
 import {
     ButtonHandler,
@@ -52,6 +52,8 @@ async function start(): Promise<void> {
     Config.client.music_collection = process.env.MUSIC_COLLECTION;
     Config.client.server_id = process.env.SERVER_ID;
     Config.client.music_channel_name = process.env.MUSIC_CHANNEL_NAME;
+    Config.client.admin_channel_id = process.env.ADMIN_CHANNEL_ID;
+    Config.client.hall_of_fame_channel_id = process.env.HOF_CHANNEL_ID;
 
     // Services
     let eventDataService = new EventDataService();
@@ -75,6 +77,7 @@ async function start(): Promise<void> {
 
         // Message Context Commands
         new ViewDateSent(),
+        new HallOfFame(),
 
         // User Context Commands
         new ViewDateJoined(),
