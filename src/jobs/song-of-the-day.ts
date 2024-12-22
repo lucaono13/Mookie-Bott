@@ -29,7 +29,10 @@ export class SongOfTheDay implements Job {
         let total_seconds = Math.floor(ms / 1000);
         let total_minutes = Math.floor(total_seconds / 60);
 
-        let seconds = total_seconds % 60;
+        let seconds = (total_seconds % 60).toLocaleString('en-US', {
+            minimumIntegerDigits: 2,
+            useGrouping: false,
+        });
         let minutes = total_minutes % 60;
 
         return `${minutes}:${seconds}`;
