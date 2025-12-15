@@ -7,6 +7,7 @@ import {
     Message,
     MessageEditOptions,
     MessageReaction,
+    PartialGroupDMChannel,
     StartThreadOptions,
     TextBasedChannel,
     ThreadChannel,
@@ -19,6 +20,7 @@ const IGNORED_ERRORS = [
     DiscordApiErrors.UnknownGuild,
     DiscordApiErrors.UnknownUser,
     DiscordApiErrors.UnknownInteraction,
+    DiscordApiErrors.MaximumNumberOfPinsReachedForTheChannel,
     DiscordApiErrors.CannotSendMessagesToThisUser, // User blocked bot or DM disabled
     DiscordApiErrors.ReactionWasBlocked, // User blocked bot or DM disabled
     DiscordApiErrors.MaximumActiveThreads,
@@ -29,6 +31,7 @@ export class MessageUtils {
         target: User | TextBasedChannel,
         content: string | EmbedBuilder | BaseMessageOptions
     ): Promise<Message> {
+        if (target instanceof PartialGroupDMChannel) return;
         try {
             let options: BaseMessageOptions =
                 typeof content === 'string'

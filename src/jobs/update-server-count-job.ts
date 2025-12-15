@@ -12,14 +12,17 @@ let BotSites: BotSite[] = require('../../config/bot-sites.json');
 let Config = require('../../config/config.json');
 let Logs = require('../../lang/logs.json');
 
-export class UpdateServerCountJob implements Job {
+export class UpdateServerCountJob extends Job {
     public name = 'Update Server Count';
     public schedule: string = Config.jobs.updateServerCount.schedule;
     public log: boolean = Config.jobs.updateServerCount.log;
+    public runOnce: boolean = Config.jobs.updateServerCount.runOnce;
+    public initialDelaySecs: number = Config.jobs.updateServerCount.initialDelaySecs;
 
     private botSites: BotSite[];
 
     constructor(private shardManager: ShardingManager, private httpService: HttpService) {
+        super();
         this.botSites = BotSites.filter(botSite => botSite.enabled);
     }
 
@@ -31,8 +34,9 @@ export class UpdateServerCountJob implements Job {
         let url = Lang.getCom('links.stream');
 
         await this.shardManager.broadcastEval(
-            (client: CustomClient, context) => {
-                return client.setPresence(context.type, context.name, context.url);
+            (client, context) => {
+                let customClient = client as CustomClient;
+                return customClient.setPresence(context.type, context.name, context.url);
             },
             { context: { type, name, url } }
         );

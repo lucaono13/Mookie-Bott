@@ -12,7 +12,14 @@ Through inviting or interacting with the bot it may collect specific data as des
 
 The bot may not be used by individuals under the minimal age described in Discord's Terms of Service.
 
-Features, such as those which are marked as "NSFW" (Not safe for work) may not be used by individuals under the age of maturity in their country. Doing so will be seen as a violation of these terms.
+Do not provide any age-restricted content (as defined in Discord's safety policies) to the bot. Age-restricted content includes but is not limited to content and discussion related to:
+
+- Sexually explicit material such as pornography or sexually explicit text
+- Violent content
+- Illegal, dangerous, and regulated goods such as firearms, tactical gear, alcohol, or drug use
+- Gambling-adjacent or addictive behavior
+
+Content submitted to the bot through the use of commands arguments, text inputs, image inputs, or otherwise must adhere to the above conditions. Violating these conditions may result in your account being reported to Discord Inc for further action.
 
 ## Affiliation
 
@@ -40,13 +47,13 @@ Other ways of support may be provided but aren't guaranteed.
 
 The bot may use stored data, as defined below, for different features including but not limited to:
 
--   Command handling
--   Providing server and user preferences
+- Command handling
+- Providing server and user preferences
 
 The bot may share non-sensitive data with 3rd party sites or services, including but not limited to:
 
--   Aggregate/statistical data (ex: total number of server or users)
--   Discord generated IDs needed to tie 3rd party data to Discord or user-provided data
+- Aggregate/statistical data (ex: total number of server or users)
+- Discord generated IDs needed to tie 3rd party data to Discord or user-provided data
 
 Personally identifiable (other than IDs) or sensitive information will not be shared with 3rd party sites or services.
 

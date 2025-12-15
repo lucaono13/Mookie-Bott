@@ -70,6 +70,7 @@
                         "value": [
                             "{{REF:links.sourceEmbed}}",
                             "{{REF:links.docsEmbed}}",
+                            "{{REF:links.termsEmbed}}",
                             "{{REF:links.voteEmbed}}",
                             "{{REF:links.donateEmbed}}",
                             "{{REF:links.supportEmbed}}",
@@ -86,7 +87,7 @@
                 "title": "{{COM:bot.name}} - Translations",
                 "description": "Thank you to our translators who have made it possible for {{COM:bot.name}} to be used in the following languages. If you are interested in providing a translation, please contact the staff in our [support server]({{COM:links.support}})."
             },
-            "dev": {
+            "devInfo": {
                 "title": "{{COM:bot.name}} - Developer Info",
                 "fields": [
                     {
@@ -188,6 +189,7 @@
             "description": "{{REF:links.templateEmbed}} helps give developers a starting point for new Discord bots, so that much of the initial setup can be avoided and developers can instead focus on meaningful bot features."
         },
         "chatCommands": {
+            "dev": "dev",
             "help": "help",
             "info": "info",
             "test": "test"
@@ -199,14 +201,17 @@
             "viewDateSent": "View Date Sent"
         },
         "arguments": {
+            "command": "command",
             "option": "option"
         },
         "commandDescs": {
+            "dev": "Developer use only.",
             "help": "Find help or contact support.",
             "info": "View bot info.",
             "test": "Run the test command."
         },
         "argDescs": {
+            "devCommand": "Command.",
             "helpOption": "Option.",
             "infoOption": "Option."
         },
@@ -221,6 +226,8 @@
             "BanMembers": "Ban Members",
             "ChangeNickname": "Change Nickname",
             "Connect": "Connect",
+            "CreateEvents": "Create Events",
+            "CreateGuildExpressions": "Create Expressions",
             "CreateInstantInvite": "Create Invite",
             "CreatePrivateThreads": "Create Private Threads",
             "CreatePublicThreads": "Create Public Threads",
@@ -241,17 +248,20 @@
             "ModerateMembers": "Timeout Members",
             "MoveMembers": "Move Members",
             "MuteMembers": "Mute Members",
+            "PinMessages": "Pin Messages",
             "PrioritySpeaker": "Priority Speaker",
             "ReadMessageHistory": "Read Message History",
             "RequestToSpeak": "Request to Speak",
             "SendMessages": "Send Messages / Create Posts",
             "SendMessagesInThreads": "Send Messages in Threads / Posts",
+            "SendPolls": "Create Polls",
             "SendTTSMessages": "Send Text-to-Speech Messages",
             "SendVoiceMessages": "Send Voice Messages",
             "Speak": "Speak",
             "Stream": "Video",
             "UseApplicationCommands": "Use Application Commands",
             "UseEmbeddedActivities": "Use Activities",
+            "UseExternalApps": "Use External Apps",
             "UseExternalEmojis": "Use External Emoji",
             "UseExternalSounds": "Use External Sounds",
             "UseExternalStickers": "Use External Stickers",
@@ -261,6 +271,9 @@
             "ViewChannel": "View Channel(s)",
             "ViewCreatorMonetizationAnalytics": "View Server Subscription Insights",
             "ViewGuildInsights": "View Server Insights"
+        },
+        "devCommandNames": {
+            "info": "info"
         },
         "helpOptions": {
             "contactSupport": "Contact Support",
@@ -272,8 +285,7 @@
         },
         "infoOptions": {
             "about": "About",
-            "translate": "Translate",
-            "dev": "Dev"
+            "translate": "Translate"
         },
         "yesNo": {
             "yes": "Yes",
@@ -294,6 +306,7 @@
             "sourceEmbed": "[View Source Code]({{COM:links.source}})",
             "supportEmbed": "[Join Support Server]({{COM:links.support}})",
             "templateEmbed": "[Discord Bot TypeScript Template]({{COM:links.template}})",
+            "termsEmbed": "[View Terms of Service]({{COM:links.terms}})",
             "voteEmbed": "[Vote for {{COM:bot.name}}!]({{COM:links.vote}})"
         }
     }
