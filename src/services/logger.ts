@@ -20,15 +20,13 @@ let logger = pino(
               options: {
                   colorize: true,
                   ignore: 'pid,hostname',
-                  translateTime: 'yyyy-mm-dd HH:MM:ss.l',
+                  translateTime: 'SYS:hj yyyy-mm-dd HH:MM:ss.l',
               },
           })
         : undefined
 );
 
 export class Logger {
-    private static shardId: number;
-
     public static info(message: string, obj?: any): void {
         if (obj) {
             logger.info(obj, message);
@@ -88,13 +86,6 @@ export class Logger {
                 .error(message);
         } else {
             logger.error(obj, message);
-        }
-    }
-
-    public static setShardId(shardId: number): void {
-        if (this.shardId !== shardId) {
-            this.shardId = shardId;
-            logger = logger.child({ shardId });
         }
     }
 }

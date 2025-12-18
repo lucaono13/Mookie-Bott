@@ -14,6 +14,7 @@ var customConfig = defineConfig([
         'misc',
         'node_modules',
         'temp',
+        '.yarn/**'
     ]),
     {
         plugins: {

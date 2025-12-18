@@ -9,8 +9,9 @@ import {
     GuildBasedChannel,
     InteractionCollector,
     InteractionResponse,
+    LabelBuilder,
     Message,
-    ModalActionRowComponentBuilder,
+    MessageFlags,
     ModalBuilder,
     ModalSubmitInteraction,
     PermissionsString,
@@ -50,38 +51,39 @@ export class BetCommand implements Command {
 
         const betName = new TextInputBuilder()
             .setCustomId('betName')
-            .setLabel('What is the bet?')
             .setStyle(TextInputStyle.Short);
+
+        const betLabel = new LabelBuilder()
+            .setLabel('What is the bet?')
+            .setTextInputComponent(betName);
 
         const choice_1 = new TextInputBuilder()
             .setCustomId('choice_1')
-            .setLabel('Choice 1 Option')
             .setStyle(TextInputStyle.Short);
+
+        const choice1Label = new LabelBuilder()
+            .setLabel('Choice 1 Option')
+            .setTextInputComponent(choice_1);
 
         const choice_2 = new TextInputBuilder()
             .setCustomId('choice_2')
+            .setStyle(TextInputStyle.Short);
+
+        const choice2Label = new LabelBuilder()
             .setLabel('Choice 2 Option')
-            .setStyle(TextInputStyle.Short);
+            .setTextInputComponent(choice_2);
 
-        const stakes = new TextInputBuilder()
-            .setCustomId('stakes')
+        const stakes = new TextInputBuilder().setCustomId('stakes').setStyle(TextInputStyle.Short);
+
+        const stakesLabel = new LabelBuilder()
             .setLabel('What are the stakes?')
-            .setStyle(TextInputStyle.Short);
+            .setTextInputComponent(stakes);
 
-        const actionRow1 = new ActionRowBuilder<ModalActionRowComponentBuilder>().addComponents(
-            betName
-        );
-        const actionRow2 = new ActionRowBuilder<ModalActionRowComponentBuilder>().addComponents(
-            choice_1
-        );
-        const actionRow3 = new ActionRowBuilder<ModalActionRowComponentBuilder>().addComponents(
-            choice_2
-        );
-        const actionRow4 = new ActionRowBuilder<ModalActionRowComponentBuilder>().addComponents(
-            stakes
-        );
-
-        modal.addComponents(actionRow1, actionRow2, actionRow3, actionRow4);
+        modal
+            .addLabelComponents(betLabel)
+            .addLabelComponents(choice1Label)
+            .addLabelComponents(choice2Label)
+            .addLabelComponents(stakesLabel);
 
         await intr.showModal(modal);
 
@@ -134,7 +136,7 @@ export class BetCommand implements Command {
             );
 
             const selectingUsers: InteractionResponse = await submittedBet.reply({
-                ephemeral: true,
+                flags: MessageFlags.Ephemeral,
                 content: 'Select users for each bet option. (min. 1 each)',
                 components: [userSelectButton1, userSelectButton2, buttonRow],
             });
@@ -209,6 +211,7 @@ export class BetCommand implements Command {
             });
 
             userCollector.on('collect', async interaction => {
+                // eslint-disable-next-line @typescript-eslint/no-unused-expressions
                 interaction.customId.endsWith('1_users')
                     ? (choice_1s = interaction.values)
                     : (choice_2s = interaction.values);

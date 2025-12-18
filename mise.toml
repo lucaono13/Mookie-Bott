@@ -1,0 +1,14 @@
+[tools]
+node = "latest"
+
+
+[tasks.start-bot]
+run = "yarn run start"
+depends = "linter"
+
+[tasks.register]
+run = "yarn commands:register"
+[tasks.view-comms]
+run = "yarn commands:view"
+[tasks.linter]
+run = "yarn eslint . --cache --ext -.js,.jsx,.ts,.tsx"

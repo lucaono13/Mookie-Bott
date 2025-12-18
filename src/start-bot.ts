@@ -1,5 +1,6 @@
 import { REST } from '@discordjs/rest';
 import { Options, Partials } from 'discord.js';
+import { Collection as MCollection, MongoClient } from 'mongodb';
 import { createRequire } from 'node:module';
 
 import { Button } from './buttons/index.js';
@@ -49,6 +50,44 @@ async function start(): Promise<void> {
     Config.client.music_channel_name = process.env.MUSIC_CHANNEL_NAME;
     Config.client.admin_channel_id = process.env.ADMIN_CHANNEL_ID;
     Config.client.hall_of_fame_channel_id = process.env.HOF_CHANNEL_ID;
+
+    // Get all guilds configs for info on specific channels and features
+    const mongoClient = new MongoClient(Config.client.mongodb_url);
+    await mongoClient.connect();
+    const guildConfigs: MCollection = mongoClient.db('guild_configs').collection('guild_configs');
+    const findResult = guildConfigs.find({});
+    let totalGuilds = 0;
+    let featureCounts = {
+        'Kermit Month': 0,
+        Hmmmm: 0,
+        Hemomancer: 0,
+        Spelltable: 0,
+        'Song of the Day': 0,
+    };
+    // let allConfigs: object = {};
+    for await (const config of findResult) {
+        console.log(config);
+        Config.client.guild_configs[config['guild_id']] = {
+            guild_name: config['guild_name'],
+            admin_channel_id: config['admin_channel_id'],
+            bets_channel_id: config['bets_channel_id'],
+            hallOfFame_channel_id: config['hallOfFame_channel_id'],
+            music_channel_id: config['music_channel_id'],
+            features: {
+                kermit_month: config['features']['kermit_month'],
+                hmmmm: config['features']['hmmmm'],
+                hemomancer: config['features']['hemomancer'],
+                spelltable: config['features']['spelltable'],
+                song_of_the_day: config['features']['song_of_the_day'],
+            },
+        };
+        if (config['features']['kermit_month']) featureCounts['Kermit Month'] += 1;
+        if (config['features']['hmmmm']) featureCounts['Hmmmm'] += 1;
+        if (config['features']['hemomancer']) featureCounts['Hemomancer'] += 1;
+        if (config['features']['spelltable']) featureCounts['Spelltable'] += 1;
+        if (config['features']['song_of_the_day']) featureCounts['Song of the Day'] += 1;
+        totalGuilds += 1;
+    }
 
     // Services
     let eventDataService = new EventDataService();
@@ -126,6 +165,15 @@ async function start(): Promise<void> {
         new JobService(jobs)
     );
 
+    Object.entries(featureCounts).forEach(feature => {
+        Logger.info(
+            Logs.counts.feature
+                .replaceAll('{X}', feature[1])
+                .replaceAll('{Y}', totalGuilds)
+                .replaceAll('{FEATURE}', feature[0])
+        );
+    });
+
     // Register Commands when running: yarn run commands
     if (process.argv[2] == 'commands') {
         try {
@@ -146,20 +194,6 @@ async function start(): Promise<void> {
         process.exit();
     }
 
-    // Register commands when starting bot
-    // try {
-    //     let rest = new REST({ version: '10' }).setToken(Config.client.token);
-    //     let commandRegistrationService = new CommandRegistrationService(rest);
-    //     let localCmds = [
-    //         ...Object.values(ChatCommandMetadata).sort((a, b) => (a.name > b.name ? 1 : -1)),
-    //         ...Object.values(MessageCommandMetadata).sort((a, b) => (a.name > b.name ? 1 : -1)),
-    //         ...Object.values(UserCommandMetadata).sort((a, b) => (a.name > b.name ? 1 : -1)),
-    //     ];
-    //     await commandRegistrationService.registerCommands(localCmds);
-    // } catch (error) {
-    //     Logger.error(Logs.error.commandAction, error);
-    // }
-    // Wait for any final logs to be written.
     await new Promise(resolve => setTimeout(resolve, 1000));
 
     await bot.start();

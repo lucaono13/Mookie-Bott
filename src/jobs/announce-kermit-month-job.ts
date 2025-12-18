@@ -20,6 +20,8 @@ export class AnnounceKermitMonth implements Job {
     constructor(private botClient: Client) {
         this.client = botClient;
     }
+    runOnce: boolean;
+    initialDelaySecs: number;
 
     public async run(): Promise<void> {
         // TODO: Remove the guild being hard-coded

@@ -30,7 +30,8 @@
             "ThreadManager": 0,
             "ThreadMemberManager": 0,
             "VoiceStateManager": 0
-        }
+        },
+        "guild_configs": {}
     },
     "db": {
         "requiredCollections": {

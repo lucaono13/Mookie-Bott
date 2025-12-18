@@ -8,9 +8,10 @@ import {
     ComponentType,
     EmbedBuilder,
     InteractionCollector,
+    LabelBuilder,
     Message,
     MessageContextMenuCommandInteraction,
-    ModalActionRowComponentBuilder,
+    MessageFlags,
     ModalBuilder,
     ModalSubmitInteraction,
     NewsChannel,
@@ -57,26 +58,24 @@ export class HallOfFame implements Command {
 
         const entryTitle = new TextInputBuilder()
             .setCustomId('hof-title-' + uid)
-            .setLabel('Entry Title')
             .setStyle(TextInputStyle.Short)
             .setRequired(true);
 
+        const entryTitleLabel = new LabelBuilder()
+            .setLabel('Entry Title')
+            .setTextInputComponent(entryTitle);
+
         const descriptionBox = new TextInputBuilder()
             .setCustomId('hof-description-' + uid)
-            .setLabel('Description/Context?')
             .setPlaceholder('Not required')
             .setStyle(TextInputStyle.Paragraph)
             .setRequired(false);
 
-        const actionRow1 = new ActionRowBuilder<ModalActionRowComponentBuilder>().addComponents(
-            entryTitle
-        );
+        const descriptionLabel = new LabelBuilder()
+            .setLabel('Description/Context?')
+            .setTextInputComponent(descriptionBox);
 
-        const actionRow2 = new ActionRowBuilder<ModalActionRowComponentBuilder>().addComponents(
-            descriptionBox
-        );
-
-        modal.addComponents(actionRow1, actionRow2);
+        modal.addLabelComponents(entryTitleLabel).addLabelComponents(descriptionLabel);
 
         await intr.showModal(modal);
 
@@ -146,7 +145,7 @@ export class HallOfFame implements Command {
             submittedHOF.reply({
                 content:
                     'Hall of Fame Request Created! Wait until a mod approves/rejects the request!',
-                ephemeral: true,
+                flags: MessageFlags.Ephemeral,
             });
 
             const approveRejectCollector: InteractionCollector<ButtonInteraction> =

@@ -24,6 +24,8 @@ export class SongOfTheDay implements Job {
     constructor(private botClient: Client) {
         this.client = botClient;
     }
+    runOnce: boolean;
+    initialDelaySecs: number;
 
     private convertMS(ms: number): string {
         let total_seconds = Math.floor(ms / 1000);

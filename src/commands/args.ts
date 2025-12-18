@@ -6,8 +6,8 @@ import { Lang } from '../services/index.js';
 
 export class Args {
     public static readonly DEV_COMMAND: APIApplicationCommandBasicOption = {
-        name: Lang.getRef('arguments.command', Language.Default),
-        name_localizations: Lang.getRefLocalizationMap('arguments.command'),
+        name: Lang.getRef('arguments.option', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('arguments.option'),
         description: Lang.getRef('argDescs.devCommand', Language.Default),
         description_localizations: Lang.getRefLocalizationMap('argDescs.devCommand'),
         type: ApplicationCommandOptionType.String,

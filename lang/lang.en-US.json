@@ -338,6 +338,7 @@
             "description": "{{REF:links.templateEmbed}} helps give developers a starting point for new Discord bots, so that much of the initial setup can be avoided and developers can instead focus on meaningful bot features."
         },
         "chatCommands": {
+            "dev": "dev",
             "help": "help",
             "info": "info",
             "test": "test",
@@ -355,12 +356,14 @@
             "option": "option"
         },
         "commandDescs": {
+            "dev": "Developer use only.",
             "help": "Find help or contact support.",
             "info": "View bot info.",
             "test": "Run the test command.",
             "bet": "Create a bet under the watchful eyes of the great arbiter Mookie"
         },
         "argDescs": {
+            "devCommand": "Command.",
             "helpOption": "Option.",
             "infoOption": "Option.",
             "betName": "name"
@@ -374,6 +377,7 @@
             "Administrator": "Administrator",
             "AttachFiles": "Attach Files",
             "BanMembers": "Ban Members",
+            "BypassSlowmode": "Bypass Slowmode",
             "ChangeNickname": "Change Nickname",
             "Connect": "Connect",
             "CreateInstantInvite": "Create Invite",
@@ -416,6 +420,9 @@
             "ViewChannel": "View Channel(s)",
             "ViewCreatorMonetizationAnalytics": "View Server Subscription Insights",
             "ViewGuildInsights": "View Server Insights"
+        },
+        "devCommandNames": {
+            "info": "info"
         },
         "helpOptions": {
             "contactSupport": "Contact Support",

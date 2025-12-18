@@ -30,6 +30,11 @@ export class Permission {
                 return Lang.getRef('permissions.BanMembers', langCode);
             },
         },
+        BypassSlowmode: {
+            displayName(langCode: Locale): string {
+                return Lang.getRef('permissions.BypassSlowmode', langCode);
+            },
+        },
         ChangeNickname: {
             displayName(langCode: Locale): string {
                 return Lang.getRef('permissions.ChangeNickname', langCode);
