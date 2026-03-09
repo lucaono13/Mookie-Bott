@@ -68,13 +68,6 @@ export class SongOfTheDay implements Job {
         // Update DB to show that song is selected
         await musicCol.updateOne({ id: selectedNumber }, { $set: { selected: true } });
 
-        // Get music channel
-        let theGuild: Guild = await ClientUtils.getGuild(this.client, Config.client.server_id);
-        let musicChannel: TextChannel | NewsChannel = await ClientUtils.findTextChannel(
-            theGuild,
-            Config.client.music_channel_name
-        );
-
         // Create and send embed with music
         let embed: EmbedBuilder = Lang.getEmbed('displayEmbeds.songOfTheDay', Language.Default, {
             DATE: today.toLocaleDateString('en-US', dateOptions),
@@ -87,7 +80,20 @@ export class SongOfTheDay implements Job {
             ALBUM_IMAGE: song['album']['image'],
             RELEASE_DATE: this.convertDate(song['release_date']),
         });
-        Logger.info(Logs.info.songOfTheDay);
-        await MessageUtils.send(musicChannel, embed);
+
+        // Checking the configs of each of the guilds and if the song of the day feature is enabled,
+        // send the embed to the correct channel
+        const configs: object = Config.client.guild_configs;
+        Object.keys(configs).forEach(async guild_id => {
+            if (configs[guild_id]['features']['song_of_the_day']) {
+                let guild: Guild = await ClientUtils.getGuild(this.client, guild_id);
+                const musicChannel: TextChannel | NewsChannel = await ClientUtils.findTextChannel(
+                    guild,
+                    String(configs[guild_id]['music_channel_id'])
+                );
+                await MessageUtils.send(musicChannel, embed);
+                Logger.info(`[${guild.name} (${guild_id})] - ${Logs.info.songOfTheDay}`);
+            }
+        });
     }
 }
