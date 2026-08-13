@@ -3,14 +3,17 @@ import { createRequire } from 'node:module';
 
 import { EventHandler } from './index.js';
 import { Language } from '../models/enum-helpers/index.js';
-import { EventDataService, Lang, Logger } from '../services/index.js';
+import { EventDataService, GuildConfigService, Lang, Logger } from '../services/index.js';
 import { ClientUtils, FormatUtils, MessageUtils } from '../utils/index.js';
 
 const require = createRequire(import.meta.url);
 let Logs = require('../../lang/logs.json');
 
 export class GuildJoinHandler implements EventHandler {
-    constructor(private eventDataService: EventDataService) {}
+    constructor(
+        private eventDataService: EventDataService,
+        private guildConfigService: GuildConfigService
+    ) {}
 
     public async process(guild: Guild): Promise<void> {
         Logger.info(
@@ -18,6 +21,8 @@ export class GuildJoinHandler implements EventHandler {
                 .replaceAll('{GUILD_NAME}', guild.name)
                 .replaceAll('{GUILD_ID}', guild.id)
         );
+
+        this.guildConfigService.getOrCreate(guild.id);
 
         let owner = await guild.fetchOwner();
 

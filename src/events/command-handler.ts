@@ -13,7 +13,7 @@ import { EventHandler } from './index.js';
 import { Command, CommandDeferType } from '../commands/index.js';
 import { DiscordLimits } from '../constants/index.js';
 import { EventData } from '../models/internal-models.js';
-import { EventDataService, Lang, Logger } from '../services/index.js';
+import { EventDataService, GuildConfigService, Lang, Logger } from '../services/index.js';
 import { CommandUtils, InteractionUtils } from '../utils/index.js';
 
 const require = createRequire(import.meta.url);
@@ -26,7 +26,7 @@ export class CommandHandler implements EventHandler {
         Config.rateLimiting.commands.interval * 1000
     );
 
-    constructor(public commands: Command[], private eventDataService: EventDataService) {}
+    constructor(public commands: Command[], private eventDataService: EventDataService, private guildConfigService: GuildConfigService) {}
 
     public async process(intr: CommandInteraction | AutocompleteInteraction): Promise<void> {
         // Don't respond to self, or other bots
@@ -102,6 +102,11 @@ export class CommandHandler implements EventHandler {
         // Check if user is rate limited
         let limited = this.rateLimiter.take(intr.user.id);
         if (limited) {
+            return;
+        }
+
+        if (command.feature && !this.guildConfigService.isFeatureEnabled(intr.guildId, command.feature)) {
+            await intr.reply({ content: 'That command is disabled in this server.', ephemeral: true });
             return;
         }
 

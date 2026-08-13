@@ -23,9 +23,10 @@ import {
 } from 'discord.js';
 // import { createRequire } from 'node:module';
 
+import { MBGuildFeature } from '../../enums/guild-feature.js';
 import { Language } from '../../models/enum-helpers/index.js';
 import { EventData } from '../../models/internal-models.js';
-import { Lang, Logger } from '../../services/index.js';
+import { GuildConfigService, Lang, Logger } from '../../services/index.js';
 import { FormatUtils } from '../../utils/index.js';
 import { Command, CommandDeferType } from '../index.js';
 
@@ -33,18 +34,35 @@ import { Command, CommandDeferType } from '../index.js';
 // let Logs = require('../../../lang/logs.json');
 export class BetCommand implements Command {
     public names = [Lang.getRef('chatCommands.bet', Language.Default)];
+    public feature = MBGuildFeature.BETS;
     public deferType = CommandDeferType.NONE;
     //Do we want a cooldown?
     //public cooldown = new RateLimiter(1, 5000);
     public requireClientPerms: PermissionsString[] = [];
 
+    constructor(private guildConfigService: GuildConfigService) {}
+
     public async execute(intr: ChatInputCommandInteraction, data: EventData): Promise<void> {
-        const betsForumChannel: GuildBasedChannel = intr.guild.channels.cache.find(
-            channel => channel.name === 'mookie-betts'
-        );
+        let guildId = intr.guild.id;
+        let betChannelId =
+            this.guildConfigService.get(guildId).features[MBGuildFeature.BETS].betsChannelId;
+        if (!betChannelId) {
+            Logger.error(`Guild: ${guildId} - Config does not have a bets channel ID.`);
+            intr.reply({
+                content: 'No bets channel identified. Have an admin add a channel.',
+                flags: 'Ephemeral',
+            });
+            return;
+        }
+        // update below to get the channel based on id
+        const betsForumChannel: GuildBasedChannel = intr.guild.channels.cache.get(betChannelId);
         if (!betsForumChannel) {
             // eslint-disable-next-line quotes
-            Logger.error("No channel in server named 'mookie-bets'");
+            Logger.error(`Guild: ${guildId} - No channel in server with that ID.`);
+            intr.reply({
+                content: 'Bets channel does not exist. Have an admin update the config.',
+                flags: 'Ephemeral',
+            });
             return;
         }
         const modal = new ModalBuilder().setCustomId('bets').setTitle('Create New Bet');

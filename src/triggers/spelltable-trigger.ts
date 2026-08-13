@@ -4,6 +4,7 @@ import { createRequire } from 'node:module';
 import { Trigger } from './trigger.js';
 import { EventData } from '../models/internal-models.js';
 import { Logger } from '../services/index.js';
+import { MBGuildFeature } from '../enums/guild-feature.js';
 
 const require = createRequire(import.meta.url);
 let Logs = require('../../lang/logs.json');
@@ -11,6 +12,7 @@ let Logs = require('../../lang/logs.json');
 export class SpelltableLinkTrigger implements Trigger {
     // public requireGuild: boolean;
     public requireGuild = false;
+    public feature = MBGuildFeature.SPELLTABLE_TRIGGER
 
     public triggered(msg: Message): boolean {
         if (msg.content.match('https://spelltable.wizards.com/game/\\S+') != null) {

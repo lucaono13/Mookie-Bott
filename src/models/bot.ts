@@ -24,7 +24,7 @@ import {
     MessageHandler,
     ReactionHandler,
 } from '../events/index.js';
-import { JobService, Logger } from '../services/index.js';
+import { GuildConfigService, JobService, Logger } from '../services/index.js';
 import { PartialUtils } from '../utils/index.js';
 
 const require = createRequire(import.meta.url);
@@ -44,7 +44,8 @@ export class Bot {
         private commandHandler: CommandHandler,
         private buttonHandler: ButtonHandler,
         private reactionHandler: ReactionHandler,
-        private jobService: JobService
+        private jobService: JobService,
+        private guildConfigService: GuildConfigService
     ) {}
 
     public async start(): Promise<void> {
@@ -80,6 +81,17 @@ export class Bot {
     private async onReady(): Promise<void> {
         let userTag = this.client.user?.tag;
         Logger.info(Logs.info.clientLogin.replaceAll('{USER_TAG}', userTag));
+
+        // gets all guilds the bot is a part of and check to ensure that there is a guild config for them
+        let currentGuildIds = new Set(this.client.guilds.cache.keys());
+        for (let guildId of currentGuildIds) {
+            this.guildConfigService.getOrCreate(guildId);
+        }
+        for (let config of this.guildConfigService.getAll()) {
+            if (config.active && !currentGuildIds.has(config.guildId)) {
+                this.guildConfigService.deactivate(config.guildId);
+            }
+        }
 
         if (!Debug.dummyMode.enabled) {
             this.jobService.start();

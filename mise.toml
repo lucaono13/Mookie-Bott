@@ -1,5 +1,6 @@
 [tools]
 node = "latest"
+yarn = "latest"
 
 
 [tasks.start-bot]

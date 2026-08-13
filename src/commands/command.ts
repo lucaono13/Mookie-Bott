@@ -7,10 +7,12 @@ import {
 } from 'discord.js';
 import { RateLimiter } from 'discord.js-rate-limiter';
 
+import { MBGuildFeature } from '../enums/guild-feature.js';
 import { EventData } from '../models/internal-models.js';
 
 export interface Command {
     names: string[];
+    feature?: MBGuildFeature;
     cooldown?: RateLimiter;
     deferType: CommandDeferType;
     requireClientPerms: PermissionsString[];

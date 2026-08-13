@@ -30,7 +30,10 @@
         "hemomancer": "Changed words to hemomancer words.",
         "randomValueDump": "{VALUE}",
         "kermitMonth": "Kermit month starts!",
-        "songOfTheDay": "Song of the Day created!"
+        "songOfTheDay": "Song of the Day created!",
+        "guildConfigFileMissing": "No guild config file found. Starting with an empty config.",
+        "guildConfigLoaded": "Loaded config for {COUNT} guild(s).",
+        "guildConfigCreated": "Created default config for guild '{GUILD_ID}'."
     },
     "warn": {
         "managerNoShards": "No shards to spawn."

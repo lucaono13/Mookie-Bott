@@ -3,8 +3,9 @@ import { createRequire } from 'node:module';
 
 import { Job } from './index.js';
 import { Language } from '../models/enum-helpers/language.js';
-import { Lang, Logger } from '../services/index.js';
+import { GuildConfigService, Lang, Logger } from '../services/index.js';
 import { ClientUtils, MessageUtils } from '../utils/index.js';
+import { MBGuildFeature } from '../enums/guild-feature.js';
 
 const require = createRequire(import.meta.url);
 let Config = require('../../config/config.json');
@@ -17,29 +18,36 @@ export class AnnounceKermitMonth implements Job {
 
     private client: Client;
 
-    constructor(private botClient: Client) {
+    constructor(private botClient: Client, private guildConfigService: GuildConfigService) {
         this.client = botClient;
     }
     runOnce: boolean;
     initialDelaySecs: number;
 
     public async run(): Promise<void> {
-        // TODO: Remove the guild being hard-coded
-        let theGuild: Guild = await ClientUtils.getGuild(this.client, Config.client.server_id);
-        // Change the server icon and banner
-        theGuild.setIcon(
-            'https://media.discordapp.net/attachments/1122737373466329148/1124221117385670716/mookermit.png?width=563&height=563'
-        );
-        theGuild.setBanner(
-            'https://media.discordapp.net/attachments/1124376164098642100/1124449273942130749/kermookie_banner.png?width=899&height=506'
-        );
+        for (let config of this.guildConfigService.getAll()) {
+            let kermit_month = config.features[MBGuildFeature.KERMIT_MONTH];
+            if (!config.active || !kermit_month.enabled ) {
+                continue;
+            }
+        
+            // TODO: Remove the guild being hard-coded
+            let theGuild: Guild = await ClientUtils.getGuild(this.client, config.guildId);
+            // Change the server icon and banner
+            theGuild.setIcon(
+                './src/assets/imgs/mookermit.png'
+            );
+            theGuild.setBanner(
+                './src/assets/imgs/kermookie_banner.png'
+            );
 
-        let notifyChannel: TextChannel | NewsChannel = await ClientUtils.findNotifyChannel(
-            theGuild,
-            Language.Default
-        );
-        let embed: EmbedBuilder = Lang.getEmbed('displayEmbeds.kermitMonth', Language.Default);
-        Logger.info(Logs.info.kermitMonth);
-        await MessageUtils.send(notifyChannel, embed);
+            let notifyChannel: TextChannel | NewsChannel = await ClientUtils.findNotifyChannel(
+                theGuild,
+                Language.Default
+            );
+            let embed: EmbedBuilder = Lang.getEmbed('displayEmbeds.kermitMonth', Language.Default);
+            Logger.info(Logs.info.kermitMonth);
+            await MessageUtils.send(notifyChannel, embed);
+        }
     }
 }

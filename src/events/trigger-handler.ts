@@ -2,7 +2,7 @@ import { Message } from 'discord.js';
 import { RateLimiter } from 'discord.js-rate-limiter';
 import { createRequire } from 'node:module';
 
-import { EventDataService } from '../services/index.js';
+import { EventDataService, GuildConfigService } from '../services/index.js';
 import { Trigger } from '../triggers/index.js';
 
 const require = createRequire(import.meta.url);
@@ -14,7 +14,11 @@ export class TriggerHandler {
         Config.rateLimiting.triggers.interval * 1000
     );
 
-    constructor(private triggers: Trigger[], private eventDataService: EventDataService) {}
+    constructor(
+        private triggers: Trigger[],
+        private eventDataService: EventDataService,
+        private guildConfigService: GuildConfigService
+    ) {}
 
     public async process(msg: Message): Promise<void> {
         // Check if user is rate limited
@@ -26,6 +30,13 @@ export class TriggerHandler {
         // Find triggers caused by this message
         let triggers = this.triggers.filter(trigger => {
             if (trigger.requireGuild && !msg.guild) {
+                return false;
+            }
+
+            if (
+                trigger.feature &&
+                !this.guildConfigService.isFeatureEnabled(msg.guildId, trigger.feature)
+            ) {
                 return false;
             }
 

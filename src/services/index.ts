@@ -5,3 +5,5 @@ export { JobService } from './job-service.js';
 export { Lang } from './lang.js';
 export { Logger } from './logger.js';
 export { MasterApiService } from './master-api-service.js';
+export { GuildConfigService } from './guild-config-service.js';
+export { HallOfFameService } from './hall-of-fame-service.js';

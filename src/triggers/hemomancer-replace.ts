@@ -2,15 +2,17 @@ import { Message } from 'discord.js';
 import { createRequire } from 'node:module';
 
 import { Trigger } from './trigger.js';
+import { MBGuildFeature } from '../enums/guild-feature.js';
 import { EventData } from '../models/internal-models.js';
-import { Logger } from '../services/index.js';
+import { GuildConfigService, Logger } from '../services/index.js';
 
 const require = createRequire(import.meta.url);
 let Logs = require('../../lang/logs.json');
 
 export class HemomancerReplace implements Trigger {
     // public requireGuild: boolean;
-    public requireGuild = false;
+    public requireGuild = true;
+    public feature = MBGuildFeature.HEMOMANCER;
 
     private hemomancerWords = {
         witch: 'sorceress',
@@ -50,6 +52,7 @@ export class HemomancerReplace implements Trigger {
 
     public triggered(msg: Message): boolean {
         let toTrigger = false;
+
         Object.keys(this.hemomancerWords).forEach(word => {
             let wordReg = new RegExp('\\b' + word, 'g');
             if (wordReg.test(msg.content)) {

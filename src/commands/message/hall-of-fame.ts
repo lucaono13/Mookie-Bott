@@ -22,30 +22,37 @@ import {
     User,
 } from 'discord.js';
 import { RateLimiter } from 'discord.js-rate-limiter';
-import { Db, Collection as MCollection, MongoClient } from 'mongodb';
-import { createRequire } from 'node:module';
 import { v4 as uuidv4 } from 'uuid';
 
+import { MBGuildFeature } from '../../enums/guild-feature.js';
 import { Language } from '../../models/enum-helpers/index.js';
 import { EventData } from '../../models/internal-models.js';
-import { Lang, Logger } from '../../services/index.js';
+import { HallOfFameEntry } from '../../services/hall-of-fame-service.js';
+import { GuildConfigService, HallOfFameService, Lang, Logger } from '../../services/index.js';
 import { ClientUtils, FormatUtils } from '../../utils/index.js';
 import { Command, CommandDeferType } from '../index.js';
 
-const require = createRequire(import.meta.url);
-
-let Config = require('../../../config/config.json');
-
 export class HallOfFame implements Command {
     public names = [Lang.getRef('messageCommands.hallOfFame', Language.Default)];
+    public feature = MBGuildFeature.HALL_OF_FAME;
     public cooldown = new RateLimiter(1, 5000);
     public deferType = CommandDeferType.NONE;
     public requireClientPerms: PermissionsString[] = [];
+
+    constructor(
+        private guildConfigService: GuildConfigService,
+        private hallOfFameService: HallOfFameService
+    ) {}
 
     public async execute(
         intr: MessageContextMenuCommandInteraction,
         data: EventData
     ): Promise<void> {
+        let guildId = intr.guild.id;
+        let adminChannelId =
+            this.guildConfigService.get(guildId).features.HALL_OF_FAME.adminChannelId;
+        let hofChannelId =
+            this.guildConfigService.get(guildId).features.HALL_OF_FAME.hallOfFameChannelId;
         const message: Message = intr.targetMessage;
         const requester: User = intr.user;
         const author: User = message.author;
@@ -91,11 +98,11 @@ export class HallOfFame implements Command {
         if (submittedHOF) {
             const adminChannel: TextChannel | NewsChannel = await ClientUtils.findTextChannel(
                 intr.guild,
-                Config.client.admin_channel_id
+                adminChannelId
             );
             const hallOfFameChannel: TextChannel | NewsChannel = await ClientUtils.findTextChannel(
                 intr.guild,
-                Config.client.hall_of_fame_channel_id
+                hofChannelId
             );
 
             const approveButton = new ButtonBuilder()
@@ -206,20 +213,15 @@ export class HallOfFame implements Command {
                             hofPostAttachment.push(file);
                         });
                     }
-                    // Add to MongoDB
-                    const mongoClient = new MongoClient(Config.client.mongodb_url);
-                    await mongoClient.connect();
-                    const db: Db = mongoClient.db('messages');
-                    const hallOfFameColl: MCollection = db.collection('hallOfFame');
-                    const mongoDBEntry = {
+                    const hofEntry: HallOfFameEntry = {
+                        entry_title: submittedHOF.fields.getTextInputValue('hof-title-' + uid),
                         message_link: message.url,
-                        author: author,
                         message_content: message.content,
-                        requester: requester,
+                        author: { id: author.id, username: author.username },
+                        requester: { id: requester.id, username: requester.username },
                         description: descriptionText,
                         date_posted: message.createdTimestamp,
-                        entry_title: submittedHOF.fields.getTextInputValue('hof-title-' + uid),
-                        files: hofPostAttachment,
+                        files: hofPostAttachment.map(file => file.url),
                     };
 
                     // Send to hall of fame channel
@@ -227,8 +229,7 @@ export class HallOfFame implements Command {
                         embeds: [entryEmbed],
                         files: hofPostAttachment,
                     });
-                    await hallOfFameColl.insertOne(mongoDBEntry);
-                    await mongoClient.close();
+                    this.hallOfFameService.addEntry(guildId, hofEntry);
                     Logger.info('Hall of Fame Entry created!');
                 }
             });

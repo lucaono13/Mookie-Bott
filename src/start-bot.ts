@@ -1,6 +1,6 @@
 import { REST } from '@discordjs/rest';
 import { Options, Partials } from 'discord.js';
-import { Collection as MCollection, MongoClient } from 'mongodb';
+// import { Collection as MCollection, MongoClient } from 'mongodb';
 import { createRequire } from 'node:module';
 
 import { Button } from './buttons/index.js';
@@ -11,8 +11,7 @@ import {
     MessageCommandMetadata,
     UserCommandMetadata,
 } from './commands/index.js';
-import { HallOfFame, ViewDateSent } from './commands/message/index.js';
-import { ViewDateJoined } from './commands/user/index.js';
+import { HallOfFame } from './commands/message/index.js';
 import {
     ButtonHandler,
     CommandHandler,
@@ -29,6 +28,8 @@ import { Reaction } from './reactions/index.js';
 import {
     CommandRegistrationService,
     EventDataService,
+    GuildConfigService,
+    HallOfFameService,
     JobService,
     Logger,
 } from './services/index.js';
@@ -40,57 +41,64 @@ let Logs = require('../lang/logs.json');
 
 async function start(): Promise<void> {
     // Get env variables
-    require('dotenv').config();
-    Config.client.token = process.env.CLIENT_TOKEN;
-    Config.client.id = process.env.CLIENT_ID;
-    Config.client.mongodb_url = process.env.MONGODB_URL;
-    Config.client.music_db = process.env.MUSIC_DB;
-    Config.client.music_collection = process.env.MUSIC_COLLECTION;
-    Config.client.server_id = process.env.SERVER_ID;
-    Config.client.music_channel_name = process.env.MUSIC_CHANNEL_NAME;
-    Config.client.admin_channel_id = process.env.ADMIN_CHANNEL_ID;
-    Config.client.hall_of_fame_channel_id = process.env.HOF_CHANNEL_ID;
+    // require('dotenv').config();
+    // Config.client.token = process.env.CLIENT_TOKEN;
+    // Config.client.id = process.env.CLIENT_ID;
+    // Config.client.mongodb_url = process.env.MONGODB_URL;
+    // Config.client.music_db = process.env.MUSIC_DB;
+    // Config.client.music_collection = process.env.MUSIC_COLLECTION;
+    // Config.client.server_id = process.env.SERVER_ID;
+    // Config.client.music_channel_name = process.env.MUSIC_CHANNEL_NAME;
+    // Config.client.admin_channel_id = process.env.ADMIN_CHANNEL_ID;
+    // Config.client.hall_of_fame_channel_id = process.env.HOF_CHANNEL_ID;
 
-    // Get all guilds configs for info on specific channels and features
-    const mongoClient = new MongoClient(Config.client.mongodb_url);
-    await mongoClient.connect();
-    const guildConfigs: MCollection = mongoClient.db('guild_configs').collection('guild_configs');
-    const findResult = guildConfigs.find({});
-    let totalGuilds = 0;
-    let featureCounts = {
-        'Kermit Month': 0,
-        Hmmmm: 0,
-        Hemomancer: 0,
-        Spelltable: 0,
-        'Song of the Day': 0,
-    };
-    // let allConfigs: object = {};
-    for await (const config of findResult) {
-        console.log(config);
-        Config.client.guild_configs[config['guild_id']] = {
-            guild_name: config['guild_name'],
-            admin_channel_id: config['admin_channel_id'],
-            bets_channel_id: config['bets_channel_id'],
-            hallOfFame_channel_id: config['hallOfFame_channel_id'],
-            music_channel_id: config['music_channel_id'],
-            features: {
-                kermit_month: config['features']['kermit_month'],
-                hmmmm: config['features']['hmmmm'],
-                hemomancer: config['features']['hemomancer'],
-                spelltable: config['features']['spelltable'],
-                song_of_the_day: config['features']['song_of_the_day'],
-            },
-        };
-        if (config['features']['kermit_month']) featureCounts['Kermit Month'] += 1;
-        if (config['features']['hmmmm']) featureCounts['Hmmmm'] += 1;
-        if (config['features']['hemomancer']) featureCounts['Hemomancer'] += 1;
-        if (config['features']['spelltable']) featureCounts['Spelltable'] += 1;
-        if (config['features']['song_of_the_day']) featureCounts['Song of the Day'] += 1;
-        totalGuilds += 1;
-    }
+    // // Get all guilds configs for info on specific channels and features
+    // const mongoClient = new MongoClient(Config.client.mongodb_url);
+    // await mongoClient.connect();
+    // const guildConfigs: MCollection = mongoClient.db('guild_configs').collection('guild_configs');
+    // const findResult = guildConfigs.find({});
+    // let totalGuilds = 0;
+    // let featureCounts = {
+    //     'Kermit Month': 0,
+    //     Hmmmm: 0,
+    //     Hemomancer: 0,
+    //     Spelltable: 0,
+    //     'Song of the Day': 0,
+    // };
+    // // let allConfigs: object = {};
+    // for await (const config of findResult) {
+    //     console.log(config);
+    //     Config.client.guild_configs[config['guild_id']] = {
+    //         guild_name: config['guild_name'],
+    //         admin_channel_id: config['admin_channel_id'],
+    //         bets_channel_id: config['bets_channel_id'],
+    //         hallOfFame_channel_id: config['hallOfFame_channel_id'],
+    //         music_channel_id: config['music_channel_id'],
+    //         features: {
+    //             kermit_month: config['features']['kermit_month'],
+    //             hmmmm: config['features']['hmmmm'],
+    //             hemomancer: config['features']['hemomancer'],
+    //             spelltable: config['features']['spelltable'],
+    //             song_of_the_day: config['features']['song_of_the_day'],
+    //         },
+    //     };
+    //     if (config['features']['kermit_month']) featureCounts['Kermit Month'] += 1;
+    //     if (config['features']['hmmmm']) featureCounts['Hmmmm'] += 1;
+    //     if (config['features']['hemomancer']) featureCounts['Hemomancer'] += 1;
+    //     if (config['features']['spelltable']) featureCounts['Spelltable'] += 1;
+    //     if (config['features']['song_of_the_day']) featureCounts['Song of the Day'] += 1;
+    //     totalGuilds += 1;
+    // }
+
+    // New way to deal with configs: JSON files.
+    // Bot is for a small number of guilds so no need to have a database for all the information to live in
+    // let config = new ConfigUtils();
 
     // Services
     let eventDataService = new EventDataService();
+    let guildConfigService = new GuildConfigService();
+    await guildConfigService.load();
+    let hallOfFameService = new HallOfFameService();
 
     // Client
     let client = new CustomClient({
@@ -107,14 +115,14 @@ async function start(): Promise<void> {
     // Commands
     let commands: Command[] = [
         // Chat Commands
-        new BetCommand(),
+        new BetCommand(guildConfigService),
 
         // Message Context Commands
-        new ViewDateSent(),
-        new HallOfFame(),
+        //new ViewDateSent(),
+        new HallOfFame(guildConfigService, hallOfFameService),
 
         // User Context Commands
-        new ViewDateJoined(),
+        //new ViewDateJoined(),
 
         // TODO: Add new commands here
     ];
@@ -137,19 +145,19 @@ async function start(): Promise<void> {
     ];
 
     // Event handlers
-    let guildJoinHandler = new GuildJoinHandler(eventDataService);
-    let guildLeaveHandler = new GuildLeaveHandler();
-    let commandHandler = new CommandHandler(commands, eventDataService);
+    let guildJoinHandler = new GuildJoinHandler(eventDataService, guildConfigService);
+    let guildLeaveHandler = new GuildLeaveHandler(guildConfigService);
+    let commandHandler = new CommandHandler(commands, eventDataService, guildConfigService);
     let buttonHandler = new ButtonHandler(buttons, eventDataService);
-    let triggerHandler = new TriggerHandler(triggers, eventDataService);
+    let triggerHandler = new TriggerHandler(triggers, eventDataService, guildConfigService);
     let messageHandler = new MessageHandler(triggerHandler);
     let reactionHandler = new ReactionHandler(reactions, eventDataService);
 
     // Jobs
     let jobs: Job[] = [
         // TODO: Add new jobs here
-        new AnnounceKermitMonth(client),
-        new SongOfTheDay(client),
+        new AnnounceKermitMonth(client, guildConfigService),
+        new SongOfTheDay(client, guildConfigService),
     ];
 
     // Bot
@@ -162,17 +170,18 @@ async function start(): Promise<void> {
         commandHandler,
         buttonHandler,
         reactionHandler,
-        new JobService(jobs)
+        new JobService(jobs),
+        guildConfigService
     );
 
-    Object.entries(featureCounts).forEach(feature => {
-        Logger.info(
-            Logs.counts.feature
-                .replaceAll('{X}', feature[1])
-                .replaceAll('{Y}', totalGuilds)
-                .replaceAll('{FEATURE}', feature[0])
-        );
-    });
+    // Object.entries(featureCounts).forEach(feature => {
+    //     Logger.info(
+    //         Logs.counts.feature
+    //             .replaceAll('{X}', feature[1])
+    //             .replaceAll('{Y}', totalGuilds)
+    //             .replaceAll('{FEATURE}', feature[0])
+    //     );
+    // });
 
     // Register Commands when running: yarn run commands
     if (process.argv[2] == 'commands') {
